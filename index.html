@@ -3,557 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CREDOS - İndirme Sayfası</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>CREDOS - Anasayfa</title>
+    
+    <link rel="icon" href="https://cdn.discordapp.com/attachments/1407091430232555682/1416185198386614343/logo_1.png?ex=68c5ecbe&is=68c49b3e&hm=2bbddd6597fdb0b5199e2efa8612c09b739fd60910c62688675f2e4fe94b9fa7&" type="image/png">
+    
     <style>
-        :root {
-            --primary-color: #7289da;
-            --secondary-color: #424549;
-            --text-color: #dcddde;
-            --background-color: #2c2f33;
-            --card-background: #36393e;
-            --border-radius: 12px;
-            --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        body.light-mode {
-            --text-color: #2c2f33;
-            --background-color: #e0e0e0;
-            --card-background: #f0f0f0;
-            --secondary-color: #bdbdbd;
-        }
-
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            background-color: #2c2f33; /* Discord koyu temasına benzer */
+            color: #ffffff;
             margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .header {
+            background-color: #23272a;
             padding: 20px;
+            border-bottom: 2px solid #7289da;
+        }
+        .header .logo-container {
             display: flex;
-            justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            flex-direction: column;
-            position: relative;
-            transition: background-color 0.3s ease;
-        }
-
-        .background-logo {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('logo (1).png');
-            background-repeat: repeat;
-            background-size: 200px;
-            opacity: 0.05;
-            z-index: -1;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 900px;
-            text-align: center;
-            z-index: 1;
-        }
-
-        h1 {
-            color: var(--text-color);
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-        }
-
-        .subtitle {
-            font-size: 1.1em;
-            color: var(--text-color);
-            opacity: 0.8;
-            margin-bottom: 40px;
-        }
-
-        .download-grid, .team-grid, .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
             justify-content: center;
-            align-items: stretch;
-            margin-bottom: 50px;
         }
-
-        .download-card, .team-card, .testimonial-card {
-            background-color: var(--card-background);
-            border: 2px solid var(--secondary-color);
-            border-radius: var(--border-radius);
-            padding: 30px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: var(--box-shadow);
-        }
-
-        .download-card:hover, .team-card:hover, .testimonial-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .card-icon {
-            font-size: 3em;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-        }
-
-        .card-title {
-            font-size: 1.5em;
-            font-weight: 600;
-            color: var(--text-color);
-            margin-bottom: 10px;
-        }
-
-        .card-description {
-            font-size: 0.9em;
-            color: var(--text-color);
-            opacity: 0.7;
-            flex-grow: 1;
-        }
-
-        .download-button {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: #ffffff;
-            padding: 12px 25px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 20px;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .download-button:hover {
-            background-color: #677bc4;
-        }
-
-        .widget-container {
-            margin-top: 50px;
-            background-color: var(--card-background);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            box-shadow: var(--box-shadow);
-            display: inline-block;
-        }
-
-        .form-container {
-            margin-top: 50px;
-            background-color: var(--card-background);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            box-shadow: var(--box-shadow);
-            display: inline-block;
-            width: 100%;
-            max-width: 680px;
-            text-align: left;
-        }
-
-        .form-container h2, .section-title {
-            color: var(--text-color);
-            font-size: 1.8em;
-            margin-bottom: 15px;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-top: 50px;
-            margin-bottom: 20px;
-        }
-
-        .announcement-container {
-            margin-top: 50px;
-            padding: 20px;
-            background-color: var(--card-background);
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-        }
-
-        .announcement {
-            background-color: var(--secondary-color);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-        }
-
-        .announcement-title {
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 5px;
-        }
-
-        .announcement-date {
-            font-size: 0.8em;
-            color: #b9bbbe;
-            margin-bottom: 10px;
-        }
-
-        .team-card img {
-            width: 100px;
-            height: 100px;
+        .header .profile-pic {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            border: 3px solid var(--primary-color);
-            margin-bottom: 15px;
-            object-fit: cover;
+            margin-right: 15px;
         }
-
-        .team-card .card-description {
-            flex-grow: 0;
-        }
-
-        .testimonial-card p {
-            font-style: italic;
-            margin-bottom: 10px;
-        }
-
-        .testimonial-card .author {
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-
-        .faq-section {
-            margin-top: 50px;
-            width: 100%;
-            max-width: 800px;
-            text-align: left;
-        }
-        
-        details {
-            background-color: var(--card-background);
-            color: var(--text-color);
-            border-radius: var(--border-radius);
-            margin-bottom: 15px;
-            padding: 15px 25px;
-            transition: all 0.3s ease;
-            box-shadow: var(--box-shadow);
-        }
-        
-        details[open] {
-            background-color: #3f4247;
-            border: 2px solid var(--primary-color);
-        }
-        
-        summary {
-            font-weight: 600;
-            font-size: 1.1em;
-            list-style: none;
-            cursor: pointer;
-            outline: none;
-            position: relative;
-        }
-        
-        summary::before {
-            content: '+';
-            font-size: 1.5em;
-            line-height: 1em;
-            margin-right: 10px;
-            font-weight: bold;
-            color: var(--primary-color);
-            transition: transform 0.2s ease;
-        }
-
-        details[open] summary::before {
-            content: '-';
-            transform: rotate(180deg);
-        }
-        
-        details p {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid var(--secondary-color);
-        }
-
-        /* Modal Stilleri */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 100;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal-content {
-            background-color: var(--card-background);
-            padding: 20px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            max-width: 90%;
-            width: 680px;
-            position: relative;
-            animation: scaleIn 0.3s ease;
-        }
-        
-        .modal-close {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            color: var(--text-color);
+        .header .name {
             font-size: 2em;
             font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s ease;
+            color: #7289da;
         }
-        
-        .modal-close:hover {
-            color: var(--primary-color);
+        .main-content {
+            padding: 20px;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .credos-ailesi-container {
+            padding: 50px 20px;
+            background-color: #23272a;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: 40px auto;
         }
-
-        @keyframes scaleIn {
-            from { transform: scale(0.9); }
-            to { transform: scale(1); }
+        .credos-ailesi-container h1 {
+            color: #99aab5;
         }
-        
-        #scroll-to-bottom {
-            position: fixed;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 15px;
+        .team-members-wrapper {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        .team-member {
+            background-color: #2c2f33;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px;
+            width: 250px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .team-member .profile-pic-container {
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            font-size: 1.5em;
-            cursor: pointer;
-            box-shadow: var(--box-shadow);
-            transition: background-color 0.3s ease;
-            z-index: 99;
+            background-color: #7289da; /* Çerçeve rengi */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 15px;
+            overflow: hidden; /* Taşmayı önler */
         }
-        
-        #scroll-to-bottom:hover {
-            background-color: #677bc4;
+        .team-member .profile-pic {
+            width: 100%; /* Konteyneri doldurur */
+            height: 100%; /* Konteyneri doldurur */
+            object-fit: cover; /* Resmi sığdırmak için */
+            border-radius: 50%; /* Yuvarlak kalmasını sağlar */
         }
-        
-        #theme-toggle {
-            position: fixed;
-            top: 25px;
-            right: 25px;
-            background-color: var(--card-background);
-            color: var(--text-color);
-            border: 2px solid var(--secondary-color);
-            padding: 10px 15px;
-            border-radius: 50px;
-            font-size: 1em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 99;
+        .team-member h2 {
+            margin: 10px 0;
+            color: #ffffff;
         }
-        
-        #theme-toggle:hover {
-            background-color: var(--secondary-color);
-        }
-
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2em;
-            }
+        .team-member p {
+            color: #99aab5;
+            font-size: 0.9em;
         }
     </style>
 </head>
 <body>
-    <div class="background-logo"></div>
-    <button id="theme-toggle">Gece/Gündüz</button>
 
-    <div class="container">
-        <h1>CREDOS Ailesine Hoş Geldiniz!</h1>
-        <p class="subtitle">Aşağıdan size özel yazılımlarımıza ve sunucularımıza ulaşabilirsiniz.</p>
+    <div class="header">
+        <div class="logo-container">
+            <img src="https://cdn.discordapp.com/attachments/1407091430232555682/1416185198386614343/logo_1.png?ex=68c5ecbe&is=68c49b3e&hm=2bbddd6597fdb0b5199e2efa8612c09b739fd60910c62688675f2e4fe94b9fa7&" alt="Credos Logo" class="profile-pic">
+            <span class="name">Credos</span>
+        </div>
+    </div>
 
-        <div class="download-grid">
-            <div class="download-card">
-                <div>
-                    <div class="card-icon">🎮</div>
-                    <div class="card-title">CREDOS Executor</div>
-                    <p class="card-description">Roblox oyunlarında en gelişmiş ve güvenli deneyimi sunan özel executor'ımız.</p>
-                </div>
-                <a href="https://dosya.co/q7p2j1ccq2p6/executor.zip.html" class="download-button" download>İndir</a>
-            </div>
-
-            <div class="download-card">
-                <div>
-                    <div class="card-icon">🛡️</div>
-                    <div class="card-title">CREDOS Spoofer</div>
-                    <p class="card-description">Valorant'ta ban yemeden oynamak için ihtiyacınız olan donanım spoofer'ı.</p>
-                </div>
-                <a href="https://dosya.co/d0wxmb35e4or/spoofer.zip.html" class="download-button" download>İndir</a>
-            </div>
-
-            <div class="download-card">
-                <div>
-                    <div class="card-icon">💬</div>
-                    <div class="card-title">Discord Sunucusu</div>
-                    <p class="card-description">Tüm duyurularımızdan haberdar olmak ve topluluğumuza katılmak için sunucumuza gelin.</p>
-                </div>
-                <a href="https://discord.gg/FzYfVykrSq" class="download-button" target="_blank">Katıl</a>
-            </div>
-
-            <div class="download-card">
-                <div>
-                    <div class="card-icon">⛏️</div>
-                    <div class="card-title">Minecraft Sunucusu</div>
-                    <p class="card-description">Sunucumuza hemen katılmak için aşağıdaki butona tıklayarak IP'yi kopyala.</p>
-                </div>
-                <button onclick="kopyala()" class="download-button" style="border: none;">IP'yi Kopyala</button>
-            </div>
-
-            <div class="download-card">
-                <div>
-                    <div class="card-icon">▶️</div>
-                    <div class="card-title">YouTube Kanalı</div>
-                    <p class="card-description">Videolarımızı takip etmek, yeniliklerden haberdar olmak için kanalımıza abone ol!</p>
-                </div>
-                <a href="https://www.youtube.com/@CREDOSProject/" class="download-button" target="_blank">Abone Ol</a>
-            </div>
+    <div class="main-content">
+        <div class="credos-ailesi-container">
+            <h1>CREDOS Ailesi</h1>
             
+            <div class="team-members-wrapper">
+                <div class="team-member">
+                    <div class="profile-pic-container">
+                        <img src="https://image.pollinations.ai/prompt/a%20logo%20with%20HTML,%20C%23,%20C++,%20Python%20symbols%20and%20%22CREDOS%22%20written%20in%20the%20middle" alt="Credos Developer Logo" class="profile-pic">
+                    </div>
+                    <h2>CREDOS</h2>
+                    <p>Kurucu ve Proje Yöneticisi</p>
+                </div>
+
+                <div class="team-member">
+                    <div class="profile-pic-container">
+                        <img src="https://image.pollinations.ai/prompt/a%20logo%20with%20HTML,%20C%23,%20C++,%20Python%20symbols%20and%20%22CREDOS%22%20written%20in%20the%20middle" alt="Credos Developer Logo" class="profile-pic">
+                    </div>
+                    <h2>CREDOS</h2>
+                    <p>Ana Geliştirici</p>
+                </div>
+            </div>
         </div>
 
-        <h2 class="section-title">En Son Duyurular</h2>
-        <div class="announcement-container">
-            <div class="announcement">
-                <div class="announcement-title">Yeni Executor Sürümü Çıktı!</div>
-                <div class="announcement-date">10 Eylül 2025</div>
-                <p>Executor'ın en son sürümü yayınlandı! Daha hızlı ve daha güvenli bir deneyim için hemen indirin.</p>
-            </div>
-            <div class="announcement">
-                <div class="announcement-title">Discord Sunucumuz 500 Üyeye Ulaştı!</div>
-                <div class="announcement-date">5 Eylül 2025</div>
-                <p>Büyük ailemizin bir parçası olduğunuz için teşekkürler! Yeni etkinlikler çok yakında.</p>
-            </div>
-            </div>
-
-        <h2 class="section-title">CREDOS Ailesi</h2>
-        <div class="team-grid">
-            <div class="team-card">
-                <img src="https://via.placeholder.com/100" alt="Üye Adı">
-                <div class="card-title">Yönetici Adı</div>
-                <p class="card-description">Kurucu ve Proje Yöneticisi</p>
-            </div>
-            <div class="team-card">
-                <img src="https://via.placeholder.com/100" alt="Üye Adı">
-                <div class="card-title">Geliştirici Adı</div>
-                <p class="card-description">Ana Geliştirici</p>
-            </div>
-            </div>
-
-        <h2 class="section-title">Kullanıcılarımız Ne Diyor?</h2>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <p>"CREDOS Executor sayesinde oyun deneyimim çok daha keyifli hale geldi. Teşekkürler!"</p>
-                <div class="author">- Minecraft Oyuncusu</div>
-            </div>
-            <div class="testimonial-card">
-                <p>"Discord sunucunuz çok aktif ve yardımsever. Herkese tavsiye ederim."</p>
-                <div class="author">- Discord Üyesi</div>
-            </div>
-            </div>
-
-        <h2 class="section-title">Sıkça Sorulan Sorular</h2>
-        <div class="faq-section">
-            <details>
-                <summary>Executor güvenli mi?</summary>
-                <p>Evet, CREDOS Executor en güncel güvenlik önlemleriyle geliştirilmiştir ve düzenli olarak güncellenir. Kullanıcı güvenliği bizim için en önemli önceliktir.</p>
-            </details>
-            <details>
-                <summary>Spoofer ne işe yarar?</summary>
-                <p>Spoofer, Valorant'ta donanım banınızı kaldırmanıza veya bypass etmenize yardımcı olur. Bu sayede yeni bir hesapla oyuna sorunsuz bir şekilde devam edebilirsiniz.</p>
-            </details>
-            <details>
-                <summary>Discord sunucunuzda hangi etkinlikler var?</summary>
-                <p>Sunucumuzda düzenli olarak çekilişler, oyun geceleri ve özel etkinlikler düzenliyoruz. Tüm duyurular için sunucumuza katılmayı unutma!</p>
-            </details>
         </div>
-
-        <div class="widget-container">
-            <h2>Discord'da Bize Katıl!</h2>
-            <p>Sunucumuzdaki anlık sohbeti, duyuruları ve üyeleri buradan takip et.</p>
-            <iframe src="https://discord.com/widget?id=1405954603639373885&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
-        </div>
-
-        <div class="form-container" style="display: none;">
-            <h2>Bizimle İletişime Geçin</h2>
-            <p>Soru, öneri veya geri bildirimleriniz için formu doldurabilirsiniz.</p>
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdEDdZ-ailkKwdAKoKL_pyXkyB6FbyHpM0Gg8QwvjH5B7NNuw/viewform?embedded=true" width="100%" height="586" frameborder="0" marginheight="0" marginwidth="0">Yükleniyor…</iframe>
-        </div>
-
-    </div>
-
-    <button id="scroll-to-bottom">↓</button>
-
-    <div id="contact-modal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close">&times;</span>
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdEDdZ-ailkKwdAKoKL_pyXkyB6FbyHpM0Gg8QwvjH5B7NNuw/viewform?embedded=true" width="100%" height="586" frameborder="0" marginheight="0" marginwidth="0">Yükleniyor…</iframe>
-        </div>
-    </div>
-
-<script>
-    document.getElementById("scroll-to-bottom").addEventListener("click", function() {
-        window.scrollTo({
-            top: document.body.scrollHeight,
-            behavior: 'smooth'
-        });
-    });
-
-    function kopyala() {
-        var metin = "CREDOSBOXPVP.aternos.me";
-        navigator.clipboard.writeText(metin)
-            .then(() => {
-                alert("IP adresi kopyalandı: " + metin);
-            })
-            .catch(err => {
-                alert("Kopyalama başarısız oldu.");
-                console.error('Kopyalama hatası:', err);
-            });
-    }
-
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    themeToggleBtn.addEventListener('click', () => {
-        document.body.classList.toggle('light-mode');
-    });
-
-    // Modal fonksiyonları
-    const modal = document.getElementById('contact-modal');
-    const contactButton = document.querySelector('.download-button[href*="docs.google.com"]');
-    const closeBtn = document.querySelector('.modal-close');
-
-    // Eski iletişim kartını bulup, butonunu modalı açacak şekilde değiştiriyoruz
-    // Eğer böyle bir kart varsa
-    const contactCard = document.querySelector('.download-card a[href*="docs.google.com"]');
-    if (contactCard) {
-        contactCard.removeAttribute('href');
-        contactCard.addEventListener('click', (e) => {
-            e.preventDefault();
-            modal.style.display = 'flex';
-        });
-    }
-
-    closeBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
-
-    window.addEventListener('click', (event) => {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-</script>
-
+    
 </body>
 </html>
