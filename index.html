@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CREDOS - İndirme Sayfası</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #7289da;
+            --secondary-color: #424549;
+            --text-color: #dcddde;
+            --background-color: #2c2f33;
+            --card-background: #36393e;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #ffffff;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            color: #b9bbbe;
+            margin-bottom: 40px;
+        }
+
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            justify-content: center;
+            align-items: stretch;
+        }
+
+        .download-card {
+            background-color: var(--card-background);
+            border: 2px solid var(--secondary-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: var(--box-shadow);
+        }
+
+        .download-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-icon {
+            font-size: 3em;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .card-description {
+            font-size: 0.9em;
+            color: #a3a6a9;
+            flex-grow: 1;
+        }
+
+        .download-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .minecraft-ip-text {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #f7a049;
+            background-color: #242629;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px dashed #5865f2;
+            margin-top: 10px;
+        }
+
+        .download-button:hover {
+            background-color: #677bc4;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>CREDOS Ailesine Hoş Geldiniz!</h1>
+        <p class="subtitle">Aşağıdan size özel yazılımlarımıza ve sunucularımıza ulaşabilirsiniz.</p>
+
+        <div class="download-grid">
+
+            <div class="download-card">
+                <div>
+                    <div class="card-icon">🎮</div>
+                    <div class="card-title">CREDOS Executor</div>
+                    <p class="card-description">Roblox oyunlarında en gelişmiş ve güvenli deneyimi sunan özel executor'ımız.</p>
+                </div>
+                <a href="https://dosya.co/q7p2j1ccq2p6/executor.zip.html" class="download-button" download>İndir</a>
+            </div>
+
+            <div class="download-card">
+                <div>
+                    <div class="card-icon">🛡️</div>
+                    <div class="card-title">CREDOS Spoofer</div>
+                    <p class="card-description">Valorant'ta ban yemeden oynamak için ihtiyacınız olan donanım spoofer'ı.</p>
+                </div>
+                <a href="https://dosya.co/d0wxmb35e4or/spoofer.zip.html" class="download-button" download>İndir</a>
+            </div>
+
+            <div class="download-card">
+                <div>
+                    <div class="card-icon">💬</div>
+                    <div class="card-title">Discord Sunucusu</div>
+                    <p class="card-description">Tüm duyurularımızdan haberdar olmak ve topluluğumuza katılmak için sunucumuza gelin.</p>
+                </div>
+                <a href="https://discord.gg/FzYfVykrSq" class="download-button" target="_blank">Katıl</a>
+            </div>
+
+            <div class="download-card">
+                <div>
+                    <div class="card-icon">⛏️</div>
+                    <div class="card-title">Minecraft Sunucusu</div>
+                    <p class="card-description">Sunucumuza hemen katılmak için aşağıdaki butona tıklayarak IP'yi kopyala.</p>
+                </div>
+                <button onclick="kopyala()" class="download-button" style="border: none;">IP'yi Kopyala</button>
+            </div>
+            
+        </div>
+    </div>
+
+<script>
+    function kopyala() {
+        var metin = "CREDOSBOXPVP.aternos.me";
+        navigator.clipboard.writeText(metin)
+            .then(() => {
+                alert("IP adresi kopyalandı: " + metin);
+            })
+            .catch(err => {
+                alert("Kopyalama başarısız oldu.");
+                console.error('Kopyalama hatası:', err);
+            });
+    }
+</script>
+
+</body>
+</html>
