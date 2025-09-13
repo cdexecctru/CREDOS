@@ -1,115 +1,401 @@
-                    <h2 data-key="dev-name-2">Geliştirici</h2>
-                    <p data-key="dev-role-2">Yazılım ve Güncellemeler</p>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CREDOS - İndirme Sayfası</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://cdn.discordapp.com/attachments/1407091430232555682/1416185198386614343/logo_1.png?ex=68c5ecbe&is=68c49b3e&hm=2bbddd6597fdb0b5199e2efa8612c09b739fd60910c62688675f2e4fe94b9fa7&" type="image/png">
+    
+    <style>
+        :root {
+            --primary-color: #7289da;
+            --secondary-color: #424549;
+            --text-color: #dcddde;
+            --background-color: #2c2f33;
+            --card-background: #36393e;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .background-logo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('logo (1).png');
+            background-repeat: repeat;
+            background-size: 200px;
+            opacity: 0.05;
+            z-index: -1;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        h1 {
+            color: #ffffff;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            color: #b9bbbe;
+            margin-bottom: 40px;
+        }
+
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            justify-content: center;
+            align-items: stretch;
+        }
+
+        .download-card {
+            background-color: var(--card-background);
+            border: 2px solid var(--secondary-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: var(--box-shadow);
+        }
+
+        .download-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-icon {
+            font-size: 3em;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .card-description {
+            font-size: 0.9em;
+            color: #a3a6a9;
+            flex-grow: 1;
+        }
+
+        .download-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .minecraft-ip-text {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #f7a049;
+            background-color: #242629;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px dashed #5865f2;
+            margin-top: 10px;
+        }
+
+        .download-button:hover {
+            background-color: #677bc4;
+        }
+
+        .widget-container {
+            margin-top: 50px;
+            background-color: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--box-shadow);
+            display: inline-block;
+        }
+
+        .form-container {
+            margin-top: 50px;
+            background-color: var(--card-background);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--box-shadow);
+            display: inline-block;
+            width: 100%;
+            max-width: 680px;
+        }
+
+        .form-container h2 {
+            color: #ffffff;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        
+        #scroll-to-bottom {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 50%;
+            font-size: 1.5em;
+            cursor: pointer;
+            box-shadow: var(--box-shadow);
+            transition: background-color 0.3s ease;
+            z-index: 99;
+        }
+        
+        #scroll-to-bottom:hover {
+            background-color: #677bc4;
+        }
+
+        /* Yeni Eklenen Bölümlerin CSS'i */
+        .section-container {
+            padding: 50px 20px;
+            background-color: var(--card-background);
+            border-radius: var(--border-radius);
+            max-width: 800px;
+            margin: 40px auto;
+            box-shadow: var(--box-shadow);
+        }
+        .section-container h1, .section-container h2 {
+            color: #99aab5;
+        }
+        .team-members-wrapper {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        .team-member {
+            background-color: var(--background-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px;
+            width: 250px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .team-member .profile-pic-container {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 15px;
+            overflow: hidden;
+        }
+        .team-member .profile-pic {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .team-member h2 {
+            margin: 10px 0;
+            color: #ffffff;
+        }
+        .team-member p {
+            color: #99aab5;
+            font-size: 0.9em;
+        }
+        .faq-item, .announcement-item {
+            background-color: var(--background-color);
+            border: 1px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .faq-item h3, .announcement-item h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+        .faq-item p, .announcement-item p {
+            color: #ccc;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-logo"></div>
+
+    <div class="container">
+        <h1>CREDOS Ailesine Hoş Geldiniz!</h1>
+        <p class="subtitle">Aşağıdan size özel yazılımlarımıza ve sunucularımıza ulaşabilirsiniz.</p>
+
+        <div class="download-grid">
+            <div class="download-card">
+                <div>
+                    <div class="card-icon">🎮</div>
+                    <div class="card-title">CREDOS Executor</div>
+                    <p class="card-description">Roblox oyunlarında en gelişmiş ve güvenli deneyimi sunan özel executor'ımız.</p>
+                </div>
+                <a href="https://dosya.co/q7p2j1ccq2p6/executor.zip.html" class="download-button" download>İndir</a>
+            </div>
+
+            <div class="download-card">
+                <div>
+                    <div class="card-icon">🛡️</div>
+                    <div class="card-title">CREDOS Spoofer</div>
+                    <p class="card-description">Valorant'ta ban yemeden oynamak için ihtiyacınız olan donanım spoofer'ı.</p>
+                </div>
+                <a href="https://dosya.co/d0wxmb35e4or/spoofer.zip.html" class="download-button" download>İndir</a>
+            </div>
+
+            <div class="download-card">
+                <div>
+                    <div class="card-icon">💬</div>
+                    <div class="card-title">Discord Sunucusu</div>
+                    <p class="card-description">Tüm duyurularımızdan haberdar olmak ve topluluğumuza katılmak için sunucumuza gelin.</p>
+                </div>
+                <a href="https://discord.gg/FzYfVykrSq" class="download-button" target="_blank">Katıl</a>
+            </div>
+
+            <div class="download-card">
+                <div>
+                    <div class="card-icon">⛏️</div>
+                    <div class="card-title">Minecraft Sunucusu</div>
+                    <p class="card-description">Sunucumuza hemen katılmak için aşağıdaki butona tıklayarak IP'yi kopyala.</p>
+                </div>
+                <button onclick="kopyala()" class="download-button" style="border: none;">IP'yi Kopyala</button>
+            </div>
+
+            <div class="download-card">
+                <div>
+                    <div class="card-icon">▶️</div>
+                    <div class="card-title">YouTube Kanalı</div>
+                    <p class="card-description">Videolarımızı takip etmek, yeniliklerden haberdar olmak için kanalımıza abone ol!</p>
+                </div>
+                <a href="https://www.youtube.com/@CREDOSProject/" class="download-button" target="_blank">Abone Ol</a>
+            </div>
+        </div>
+
+        <div class="widget-container">
+            <h2>Discord'da Bize Katıl!</h2>
+            <p>Sunucumuzdaki anlık sohbeti, duyuruları ve üyeleri buradan takip et.</p>
+            <iframe src="https://discord.com/widget?id=1405954603639373885&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+        </div>
+
+        <div class="form-container">
+            <h2>Bizimle İletişime Geçin</h2>
+            <p>Soru, öneri veya geri bildirimleriniz için formu doldurabilirsiniz.</p>
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdEDdZ-ailkKwdAKoKL_pyXkyB6FbyHpM0Gg8QwvjH5B7NNuw/viewform?embedded=true" width="100%" height="586" frameborder="0" marginheight="0" marginwidth="0">Yükleniyor…</iframe>
+        </div>
+
+        <div class="section-container">
+            <h1>CREDOS Ailesi</h1>
+            <div class="team-members-wrapper">
+                <div class="team-member">
+                    <div class="profile-pic-container">
+                        <img src="https://cdn.discordapp.com/attachments/1407091430232555682/1416185198386614343/logo_1.png?ex=68c5ecbe&is=68c49b3e&hm=2bbddd6597fdb0b5199e2efa8612c09b739fd60910c6268675f2e4fe94b9fa7&" alt="Credos Developer Logo" class="profile-pic">
+                    </div>
+                    <h2>Ana Geliştirici</h2>
+                    <p>Credos</p>
                 </div>
                 <div class="team-member">
                     <div class="profile-pic-container">
-                        <img src="https://cdn.discordapp.com/attachments/1407091430232555682/1416185198386614343/logo_1.png" alt="Credos Developer Logo" class="profile-pic">
+                        <img src="https://cdn.discordapp.com/attachments/1407091430232555682/1416185198386614343/logo_1.png?ex=68c5ecbe&is=68c49b3e&hm=2bbddd6597fdb0b5199e2efa8612c09b739fd60910c62688675f2e4fe94b9fa7&" alt="Credos Developer Logo" class="profile-pic">
                     </div>
-                    <h2 data-key="dev-name-3">Tasarımcı</h2>
-                    <p data-key="dev-role-3">UI/UX ve Görsel Tasarım</p>
+                    <h2>Kurucu</h2>
+                    <p>Credos</p>
                 </div>
             </div>
         </div>
 
         <div class="section-container">
-            <h2 data-key="faq-title">Sıkça Sorulan Sorular</h2>
+            <h2>Sıkça Sorulan Sorular (SSS)</h2>
             <div class="faq-item">
-                <h3 data-key="faq-q1">Executor güvenli mi?</h3>
-                <p data-key="faq-a1">Evet, tüm executor'larımız virüs ve malware içermez, tamamen güvenlidir.</p>
+                <h3>Sunucuya nasıl katılabilirim?</h3>
+                <p>Discord sunucumuza katılmak için ana sayfadaki davet linkini kullanabilirsiniz.</p>
             </div>
             <div class="faq-item">
-                <h3 data-key="faq-q2">Spoofer nasıl çalışıyor?</h3>
-                <p data-key="faq-a2">Donanım kimliğinizi geçici olarak değiştirir, ban riskini azaltır.</p>
+                <h3>Oyun sunucusunda hile kullanırsam ne olur?</h3>
+                <p>Hile kullanımı kesinlikle yasaktır ve tespiti halinde sunucudan kalıcı olarak uzaklaştırılırsınız.</p>
             </div>
             <div class="faq-item">
-                <h3 data-key="faq-q3">Minecraft sunucusuna nasıl bağlanırım?</h3>
-                <p data-key="faq-a3">Yukarıdaki "IP'yi Kopyala" butonuna tıklayın ve Minecraft'ta IP'yi yapıştırın.</p>
+                <h3>Yetkili olmak için ne yapmalıyım?</h3>
+                <p>Sunucumuzda yetkili alımları başladığında, duyurular kanalından bilgi verilecektir.</p>
             </div>
         </div>
 
         <div class="section-container">
-            <h2 data-key="announcements-title">Duyurular</h2>
+            <h2>Son Duyurular</h2>
             <div class="announcement-item">
-                <h3 data-key="announcement-1-title">Yeni Executor Güncellemesi</h3>
-                <p data-key="announcement-1-desc">Executor 2.1 sürümü yayınlandı. Daha hızlı ve stabil çalışıyor!</p>
+                <h3>Sunucu Bakımı</h3>
+                <p>Sunucumuz 28 Eylül Cumartesi günü 18:00-20:00 saatleri arasında bakımda olacaktır. Bu süreçte sunucuya erişim sağlanamayacaktır.</p>
             </div>
             <div class="announcement-item">
-                <h3 data-key="announcement-2-title">Discord Sunucusu Açıldı</h3>
-                <p data-key="announcement-2-desc">Topluluğumuza katılmak ve destek almak için sunucumuza davetlisiniz.</p>
+                <h3>Yeni Oyun Modu</h3>
+                <p>Yakında sunucumuza yeni bir oyun modu eklenecektir. Detaylar için bizi takipte kalın!</p>
             </div>
         </div>
-
-        <button id="scroll-to-bottom">⬇️</button>
     </div>
+    
+    <button id="scroll-to-bottom">↓</button>
 
-    <script>
-        // Tema değiştirme
-        const themeToggle = document.getElementById('theme-toggle');
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('light-mode');
+<script>
+    document.getElementById("scroll-to-bottom").addEventListener("click", function() {
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: 'smooth'
         });
+    });
 
-        // IP kopyalama
-        function kopyala() {
-            const ip = "play.credosmc.net";
-            navigator.clipboard.writeText(ip).then(() => {
-                alert("Minecraft IP'si kopyalandı: " + ip);
+    function kopyala() {
+        var metin = "CREDOSBOXPVP.aternos.me";
+        navigator.clipboard.writeText(metin)
+            .then(() => {
+                alert("IP adresi kopyalandı: " + metin);
+            })
+            .catch(err => {
+                alert("Kopyalama başarısız oldu.");
+                console.error('Kopyalama hatası:', err);
             });
-        }
+    }
+</script>
 
-        // Dil değiştirme
-        const translations = {
-            en: {
-                "main-title": "Welcome to CREDOS Family!",
-                "main-subtitle": "Access our exclusive software and servers below.",
-                "executor-title": "CREDOS Executor",
-                "executor-desc": "The safest and most advanced executor for Roblox games.",
-                "download-button": "Download",
-                "spoofer-title": "CREDOS Spoofer",
-                "spoofer-desc": "The hardware spoofer you need to play Valorant without bans.",
-                "discord-title": "Discord Server",
-                "discord-desc": "Join our community and stay updated with announcements.",
-                "join-button": "Join",
-                "minecraft-title": "Minecraft Server",
-                "minecraft-desc": "Click below to copy the server IP and join.",
-                "copy-ip-button": "Copy IP",
-                "youtube-title": "YouTube Channel",
-                "youtube-desc": "Subscribe to stay updated with our latest videos.",
-                "subscribe-button": "Subscribe",
-                "discord-widget-title": "Join Us on Discord!",
-                "discord-widget-desc": "Follow chat, announcements, and members live here.",
-                "contact-title": "Contact Us",
-                "contact-desc": "Fill out the form for questions, suggestions, or feedback.",
-                "team-title": "CREDOS Team",
-                "faq-title": "Frequently Asked Questions",
-                "faq-q1": "Is the Executor safe?",
-                "faq-a1": "Yes, all executors are virus-free and completely safe.",
-                "faq-q2": "How does the Spoofer work?",
-                "faq-a2": "It temporarily changes your hardware ID, reducing ban risk.",
-                "faq-q3": "How to connect to the Minecraft server?",
-                "faq-a3": "Click 'Copy IP' above and paste it in Minecraft.",
-                "announcements-title": "Announcements",
-                "announcement-1-title": "New Executor Update",
-                "announcement-1-desc": "Executor 2.1 released. Faster and more stable!",
-                "announcement-2-title": "Discord Server Launched",
-                "announcement-2-desc": "Join our community for support and updates."
-            }
-        };
-
-        function setLanguage(lang) {
-            document.querySelectorAll('[data-key]').forEach(el => {
-                const key = el.getAttribute('data-key');
-                if (translations[lang] && translations[lang][key]) {
-                    el.textContent = translations[lang][key];
-                }
-            });
-        }
-
-        // Scroll to bottom
-        const scrollBtn = document.getElementById('scroll-to-bottom');
-        scrollBtn.addEventListener('click', () => {
-            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        });
-    </script>
 </body>
 </html>
