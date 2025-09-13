@@ -1,361 +1,115 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CREDOS - İndirme Sayfası</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="https://cdn.discordapp.com/attachments/1407091430232555682/1416185198386614343/logo_1.png?ex=68c5ecbe&is=68c49b3e&hm=2bbddd6597fdb0b5199e2efa8612c09b739fd60910c62688675f2e4fe94b9fa7&" type="image/png">
-    
-    <!-- Google AdSense Kod Snippet'i -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9902594876407876"
-     crossorigin="anonymous"></script>
-    
-    <style>
-        :root {
-            --primary-color: #7289da;
-            --secondary-color: #424549;
-            --text-color: #dcddde;
-            --background-color: #2c2f33;
-            --card-background: #36393e;
-            --border-radius: 12px;
-            --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            --button-background: var(--primary-color);
+                    <h2 data-key="dev-name-2">Geliştirici</h2>
+                    <p data-key="dev-role-2">Yazılım ve Güncellemeler</p>
+                </div>
+                <div class="team-member">
+                    <div class="profile-pic-container">
+                        <img src="https://cdn.discordapp.com/attachments/1407091430232555682/1416185198386614343/logo_1.png" alt="Credos Developer Logo" class="profile-pic">
+                    </div>
+                    <h2 data-key="dev-name-3">Tasarımcı</h2>
+                    <p data-key="dev-role-3">UI/UX ve Görsel Tasarım</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-container">
+            <h2 data-key="faq-title">Sıkça Sorulan Sorular</h2>
+            <div class="faq-item">
+                <h3 data-key="faq-q1">Executor güvenli mi?</h3>
+                <p data-key="faq-a1">Evet, tüm executor'larımız virüs ve malware içermez, tamamen güvenlidir.</p>
+            </div>
+            <div class="faq-item">
+                <h3 data-key="faq-q2">Spoofer nasıl çalışıyor?</h3>
+                <p data-key="faq-a2">Donanım kimliğinizi geçici olarak değiştirir, ban riskini azaltır.</p>
+            </div>
+            <div class="faq-item">
+                <h3 data-key="faq-q3">Minecraft sunucusuna nasıl bağlanırım?</h3>
+                <p data-key="faq-a3">Yukarıdaki "IP'yi Kopyala" butonuna tıklayın ve Minecraft'ta IP'yi yapıştırın.</p>
+            </div>
+        </div>
+
+        <div class="section-container">
+            <h2 data-key="announcements-title">Duyurular</h2>
+            <div class="announcement-item">
+                <h3 data-key="announcement-1-title">Yeni Executor Güncellemesi</h3>
+                <p data-key="announcement-1-desc">Executor 2.1 sürümü yayınlandı. Daha hızlı ve stabil çalışıyor!</p>
+            </div>
+            <div class="announcement-item">
+                <h3 data-key="announcement-2-title">Discord Sunucusu Açıldı</h3>
+                <p data-key="announcement-2-desc">Topluluğumuza katılmak ve destek almak için sunucumuza davetlisiniz.</p>
+            </div>
+        </div>
+
+        <button id="scroll-to-bottom">⬇️</button>
+    </div>
+
+    <script>
+        // Tema değiştirme
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+        });
+
+        // IP kopyalama
+        function kopyala() {
+            const ip = "play.credosmc.net";
+            navigator.clipboard.writeText(ip).then(() => {
+                alert("Minecraft IP'si kopyalandı: " + ip);
+            });
         }
 
-        body.light-mode {
-            --background-color: #f2f3f5;
-            --card-background: #ffffff;
-            --text-color: #2c2f33;
-            --secondary-color: #dadde1;
-            --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            --button-background: var(--primary-color);
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            flex-direction: column;
-            position: relative;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .background-logo {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('logo (1).png');
-            background-repeat: repeat;
-            background-size: 200px;
-            opacity: 0.05;
-            z-index: -1;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 900px;
-            text-align: center;
-            z-index: 1;
-        }
-
-        h1 {
-            color: var(--text-color);
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
-            transition: color 0.3s ease;
-        }
-
-        .subtitle {
-            font-size: 1.1em;
-            color: var(--text-color);
-            margin-bottom: 40px;
-            transition: color 0.3s ease;
-        }
-        
-        body.light-mode h1,
-        body.light-mode .subtitle {
-            text-shadow: none;
-        }
-
-        .download-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            justify-content: center;
-            align-items: stretch;
-        }
-
-        .download-card {
-            background-color: var(--card-background);
-            border: 2px solid var(--secondary-color);
-            border-radius: var(--border-radius);
-            padding: 30px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: var(--box-shadow);
-        }
-
-        .download-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .card-icon {
-            font-size: 3em;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-        }
-
-        .card-title {
-            font-size: 1.5em;
-            font-weight: 600;
-            color: var(--text-color);
-            margin-bottom: 10px;
-            transition: color 0.3s ease;
-        }
-
-        .card-description {
-            font-size: 0.9em;
-            color: var(--text-color);
-            flex-grow: 1;
-            transition: color 0.3s ease;
-        }
-        
-        body.light-mode .card-description {
-            color: #5d6168;
-        }
-
-        .download-button {
-            display: inline-block;
-            background-color: var(--button-background);
-            color: #ffffff;
-            padding: 12px 25px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 20px;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        
-        .minecraft-ip-text {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1.1em;
-            font-weight: bold;
-            color: #f7a049;
-            background-color: #242629;
-            padding: 8px;
-            border-radius: 6px;
-            border: 1px dashed #5865f2;
-            margin-top: 10px;
-        }
-        
-        body.light-mode .minecraft-ip-text {
-            color: #d1752b;
-            background-color: #eceff2;
-        }
-
-        .download-button:hover {
-            background-color: #677bc4;
-        }
-
-        .widget-container {
-            margin-top: 50px;
-            background-color: var(--card-background);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            box-shadow: var(--box-shadow);
-            display: inline-block;
-            transition: background-color 0.3s ease;
-        }
-
-        .form-container {
-            margin-top: 50px;
-            background-color: var(--card-background);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            box-shadow: var(--box-shadow);
-            display: inline-block;
-            width: 100%;
-            max-width: 680px;
-            transition: background-color 0.3s ease;
-        }
-
-        .form-container h2 {
-            color: var(--text-color);
-            font-size: 1.8em;
-            margin-bottom: 15px;
-            transition: color 0.3s ease;
-        }
-        
-        #scroll-to-bottom {
-            position: fixed;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 50%;
-            font-size: 1.5em;
-            cursor: pointer;
-            box-shadow: var(--box-shadow);
-            transition: background-color 0.3s ease;
-            z-index: 99;
-        }
-        
-        #scroll-to-bottom:hover {
-            background-color: #677bc4;
-        }
-
-        /* Yeni Eklenen Bölümlerin CSS'i */
-        .section-container {
-            padding: 50px 20px;
-            background-color: var(--card-background);
-            border-radius: var(--border-radius);
-            max-width: 800px;
-            margin: 40px auto;
-            box-shadow: var(--box-shadow);
-            transition: background-color 0.3s ease;
-        }
-        .section-container h1, .section-container h2 {
-            color: var(--text-color);
-            transition: color 0.3s ease;
-        }
-        
-        body.light-mode .section-container h1,
-        body.light-mode .section-container h2 {
-            color: #5d6168;
-        }
-
-        .team-members-wrapper {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin-top: 30px;
-        }
-        .team-member {
-            background-color: var(--background-color);
-            border-radius: 10px;
-            padding: 20px;
-            margin: 15px;
-            width: 250px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            transition: background-color 0.3s ease;
-        }
-        .team-member .profile-pic-container {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background-color: var(--primary-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto 15px;
-            overflow: hidden;
-        }
-        .team-member .profile-pic {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-        .team-member h2 {
-            margin: 10px 0;
-            color: var(--text-color);
-            transition: color 0.3s ease;
-        }
-        .team-member p {
-            color: var(--text-color);
-            font-size: 0.9em;
-            transition: color 0.3s ease;
-        }
-        
-        body.light-mode .team-member h2,
-        body.light-mode .team-member p {
-            color: #5d6168;
-        }
-        
-        .faq-item, .announcement-item {
-            background-color: var(--background-color);
-            border: 1px solid var(--primary-color);
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 15px;
-            text-align: left;
-            transition: background-color 0.3s ease;
-        }
-        .faq-item h3, .announcement-item h3 {
-            color: var(--primary-color);
-            margin-top: 0;
-        }
-        .faq-item p, .announcement-item p {
-            color: var(--text-color);
-            transition: color 0.3s ease;
-        }
-        
-        body.light-mode .faq-item p,
-        body.light-mode .announcement-item p {
-            color: #5d6168;
-        }
-
-        .control-buttons {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            display: flex;
-            gap: 10px;
-        }
-
-        .control-button {
-            padding: 8px 15px;
-            border: 1px solid var(--primary-color);
-            background-color: var(--secondary-color);
-            color: var(--text-color);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .control-button:hover {
-            background-color: #4c525a;
-        }
-
-        body.light-mode .control-button {
-            background-color: #e5e5e5;
-            color: #2c2f33;
-        }
-        
-        body.light-mode .control-button:hover {
-            background-color: #d8d8d8;
-        }
-
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2em;
+        // Dil değiştirme
+        const translations = {
+            en: {
+                "main-title": "Welcome to CREDOS Family!",
+                "main-subtitle": "Access our exclusive software and servers below.",
+                "executor-title": "CREDOS Executor",
+                "executor-desc": "The safest and most advanced executor for Roblox games.",
+                "download-button": "Download",
+                "spoofer-title": "CREDOS Spoofer",
+                "spoofer-desc": "The hardware spoofer you need to play Valorant without bans.",
+                "discord-title": "Discord Server",
+                "discord-desc": "Join our community and stay updated with announcements.",
+                "join-button": "Join",
+                "minecraft-title": "Minecraft Server",
+                "minecraft-desc": "Click below to copy the server IP and join.",
+                "copy-ip-button": "Copy IP",
+                "youtube-title": "YouTube Channel",
+                "youtube-desc": "Subscribe to stay updated with our latest videos.",
+                "subscribe-button": "Subscribe",
+                "discord-widget-title": "Join Us on Discord!",
+                "discord-widget-desc": "Follow chat, announcements, and members live here.",
+                "contact-title": "Contact Us",
+                "contact-desc": "Fill out the form for questions, suggestions, or feedback.",
+                "team-title": "CREDOS Team",
+                "faq-title": "Frequently Asked Questions",
+                "faq-q1": "Is the Executor safe?",
+                "faq-a1": "Yes, all executors are virus-free and completely safe.",
+                "faq-q2": "How does the Spoofer work?",
+                "faq-a2": "It temporarily changes your hardware ID, reducing ban risk.",
+                "faq-q3": "How to connect to the Minecraft server?",
+                "faq-a3": "Click 'Copy IP' above and paste it in Minecraft.",
+                "announcements-title": "Announcements",
+                "announcement-1-title": "New Executor Update",
+                "announcement-1-desc": "Executor 2.1 released. Faster and more stable!",
+                "announcement-2-title": "Discord Server Launched",
+                "announcement-2-desc": "Join our community for support and updates."
             }
-        }
-    </style>
-</head>
-<body>
-    <div class="background-logo"></div>
-    <!-- Senin tüm body içeriğin buraya eksiksiz kopyalandı -->
+        };
 
-<script>
-    // Senin tüm JS kodların buraya eksiksiz kopyalandı
-</script>
+        function setLanguage(lang) {
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        // Scroll to bottom
+        const scrollBtn = document.getElementById('scroll-to-bottom');
+        scrollBtn.addEventListener('click', () => {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        });
+    </script>
 </body>
 </html>
