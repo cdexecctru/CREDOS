@@ -16,6 +16,16 @@
             --card-background: #36393e;
             --border-radius: 12px;
             --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            --button-background: var(--primary-color);
+        }
+
+        body.light-mode {
+            --background-color: #f2f3f5;
+            --card-background: #ffffff;
+            --text-color: #2c2f33;
+            --secondary-color: #dadde1;
+            --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            --button-background: var(--primary-color);
         }
 
         body {
@@ -30,6 +40,7 @@
             min-height: 100vh;
             flex-direction: column;
             position: relative;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .background-logo {
@@ -53,16 +64,23 @@
         }
 
         h1 {
-            color: #ffffff;
+            color: var(--text-color);
             font-size: 2.5em;
             margin-bottom: 10px;
             text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            transition: color 0.3s ease;
         }
 
         .subtitle {
             font-size: 1.1em;
-            color: #b9bbbe;
+            color: var(--text-color);
             margin-bottom: 40px;
+            transition: color 0.3s ease;
+        }
+        
+        body.light-mode h1,
+        body.light-mode .subtitle {
+            text-shadow: none;
         }
 
         .download-grid {
@@ -78,7 +96,7 @@
             border: 2px solid var(--secondary-color);
             border-radius: var(--border-radius);
             padding: 30px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -99,19 +117,25 @@
         .card-title {
             font-size: 1.5em;
             font-weight: 600;
-            color: #ffffff;
+            color: var(--text-color);
             margin-bottom: 10px;
+            transition: color 0.3s ease;
         }
 
         .card-description {
             font-size: 0.9em;
-            color: #a3a6a9;
+            color: var(--text-color);
             flex-grow: 1;
+            transition: color 0.3s ease;
+        }
+        
+        body.light-mode .card-description {
+            color: #5d6168;
         }
 
         .download-button {
             display: inline-block;
-            background-color: var(--primary-color);
+            background-color: var(--button-background);
             color: #ffffff;
             padding: 12px 25px;
             border-radius: 8px;
@@ -133,6 +157,11 @@
             border: 1px dashed #5865f2;
             margin-top: 10px;
         }
+        
+        body.light-mode .minecraft-ip-text {
+            color: #d1752b;
+            background-color: #eceff2;
+        }
 
         .download-button:hover {
             background-color: #677bc4;
@@ -145,6 +174,7 @@
             padding: 20px;
             box-shadow: var(--box-shadow);
             display: inline-block;
+            transition: background-color 0.3s ease;
         }
 
         .form-container {
@@ -156,12 +186,14 @@
             display: inline-block;
             width: 100%;
             max-width: 680px;
+            transition: background-color 0.3s ease;
         }
 
         .form-container h2 {
-            color: #ffffff;
+            color: var(--text-color);
             font-size: 1.8em;
             margin-bottom: 15px;
+            transition: color 0.3s ease;
         }
         
         #scroll-to-bottom {
@@ -193,10 +225,18 @@
             max-width: 800px;
             margin: 40px auto;
             box-shadow: var(--box-shadow);
+            transition: background-color 0.3s ease;
         }
         .section-container h1, .section-container h2 {
-            color: #99aab5;
+            color: var(--text-color);
+            transition: color 0.3s ease;
         }
+        
+        body.light-mode .section-container h1,
+        body.light-mode .section-container h2 {
+            color: #5d6168;
+        }
+
         .team-members-wrapper {
             display: flex;
             justify-content: space-around;
@@ -210,6 +250,7 @@
             margin: 15px;
             width: 250px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease;
         }
         .team-member .profile-pic-container {
             width: 120px;
@@ -230,12 +271,20 @@
         }
         .team-member h2 {
             margin: 10px 0;
-            color: #ffffff;
+            color: var(--text-color);
+            transition: color 0.3s ease;
         }
         .team-member p {
-            color: #99aab5;
+            color: var(--text-color);
             font-size: 0.9em;
+            transition: color 0.3s ease;
         }
+        
+        body.light-mode .team-member h2,
+        body.light-mode .team-member p {
+            color: #5d6168;
+        }
+        
         .faq-item, .announcement-item {
             background-color: var(--background-color);
             border: 1px solid var(--primary-color);
@@ -243,32 +292,51 @@
             padding: 20px;
             margin-bottom: 15px;
             text-align: left;
+            transition: background-color 0.3s ease;
         }
         .faq-item h3, .announcement-item h3 {
             color: var(--primary-color);
             margin-top: 0;
         }
         .faq-item p, .announcement-item p {
-            color: #ccc;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+        
+        body.light-mode .faq-item p,
+        body.light-mode .announcement-item p {
+            color: #5d6168;
         }
 
-        .language-buttons {
+        .control-buttons {
+            position: fixed;
+            top: 20px;
+            right: 20px;
             display: flex;
-            justify-content: center;
             gap: 10px;
-            margin-top: 20px; /* Butonların konumunu ayarlayın */
         }
-        .lang-button {
+
+        .control-button {
             padding: 8px 15px;
             border: 1px solid var(--primary-color);
             background-color: var(--secondary-color);
             color: var(--text-color);
             border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
-        .lang-button:hover {
+
+        .control-button:hover {
             background-color: #4c525a;
+        }
+
+        body.light-mode .control-button {
+            background-color: #e5e5e5;
+            color: #2c2f33;
+        }
+        
+        body.light-mode .control-button:hover {
+            background-color: #d8d8d8;
         }
 
         @media (max-width: 600px) {
@@ -282,9 +350,10 @@
     <div class="background-logo"></div>
 
     <div class="container">
-        <div class="language-buttons">
-            <button class="lang-button" onclick="setLanguage('tr')">TR</button>
-            <button class="lang-button" onclick="setLanguage('en')">EN</button>
+        <div class="control-buttons">
+            <button class="control-button" id="theme-toggle">Tema Değiştir</button>
+            <button class="control-button" onclick="setLanguage('tr')">TR</button>
+            <button class="control-button" onclick="setLanguage('en')">EN</button>
         </div>
         
         <h1 data-key="main-title">CREDOS Ailesine Hoş Geldiniz!</h1>
@@ -485,11 +554,34 @@
             const key = element.getAttribute('data-key');
             element.textContent = translations[lang][key];
         });
+        localStorage.setItem('preferredLang', lang); // Dil seçimini tarayıcıya kaydet
     }
 
-    // İlk yüklemede varsayılan dili ayarla (Türkçe)
+    // Tema değiştirme fonksiyonu
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    function toggleTheme() {
+        body.classList.toggle('light-mode');
+        const isLightMode = body.classList.contains('light-mode');
+        localStorage.setItem('theme', isLightMode ? 'light' : 'dark'); // Tema seçimini kaydet
+        themeToggleBtn.textContent = isLightMode ? 'Koyu Tema' : 'Açık Tema'; // Buton metnini değiştir
+    }
+
+    themeToggleBtn.addEventListener('click', toggleTheme);
+
+    // İlk yüklemede kaydedilen ayarları kontrol et
     document.addEventListener('DOMContentLoaded', () => {
-        setLanguage('tr');
+        const savedLang = localStorage.getItem('preferredLang') || 'tr'; // Kaydedilmiş dil yoksa Türkçe
+        setLanguage(savedLang);
+
+        const savedTheme = localStorage.getItem('theme') || 'dark'; // Kaydedilmiş tema yoksa koyu
+        if (savedTheme === 'light') {
+            body.classList.add('light-mode');
+            themeToggleBtn.textContent = 'Koyu Tema';
+        } else {
+            themeToggleBtn.textContent = 'Açık Tema';
+        }
     });
 
     document.getElementById("scroll-to-bottom").addEventListener("click", function() {
