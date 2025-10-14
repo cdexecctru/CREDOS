@@ -3,401 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CREDOS - İndirme Sayfası</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="https://cdn.discordapp.com/attachments/1407091430232555682/1416185198386614343/logo_1.png?ex=68c5ecbe&is=68c49b3e&hm=2bbddd6597fdb0b5199e2efa8612c09b739fd60910c62688675f2e4fe94b9fa7&" type="image/png">
-    
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9902594876407876" crossorigin="anonymous"></script>
-    
+    <title>MineCraft Hile Merkezi</title>
     <style>
-        :root {
-            --primary-color: #7289da;
-            --secondary-color: #424549;
-            --text-color: #dcddde;
-            --background-color: #2c2f33;
-            --card-background: #36393e;
-            --border-radius: 12px;
-            --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
+            font-family: 'Press Start 2P', cursive;
+            background-color: #1e1e1e;
+            color: #ffffff;
             margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            flex-direction: column;
-            position: relative;
+            padding: 0;
+            background-image: url('https://www.minecraft.net/content/dam/games/minecraft/key-art/Caves-and-Cliffs-1920x1080.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
         }
 
-        .background-logo {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('logo (1).png');
-            background-repeat: repeat;
-            background-size: 200px;
-            opacity: 0.05;
-            z-index: -1;
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.75);
+            min-height: 100vh;
+            padding: 20px;
         }
 
         .container {
-            width: 100%;
             max-width: 900px;
+            margin: auto;
             text-align: center;
-            z-index: 1;
         }
 
-        h1 {
-            color: #ffffff;
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        .header {
+            padding: 40px 0;
+            border-bottom: 4px solid #4CAF50;
+            image-rendering: pixelated;
         }
 
-        .subtitle {
-            font-size: 1.1em;
-            color: #b9bbbe;
-            margin-bottom: 40px;
-        }
-
-        .download-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            justify-content: center;
-            align-items: stretch;
-        }
-
-        .download-card {
-            background-color: var(--card-background);
-            border: 2px solid var(--secondary-color);
-            border-radius: var(--border-radius);
-            padding: 30px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: var(--box-shadow);
-        }
-
-        .download-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .card-icon {
+        .header h1 {
             font-size: 3em;
-            color: var(--primary-color);
-            margin-bottom: 15px;
+            color: #4CAF50;
+            text-shadow: 4px 4px 0px #000000;
+            margin: 0;
         }
 
-        .card-title {
-            font-size: 1.5em;
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 10px;
-        }
-
-        .card-description {
-            font-size: 0.9em;
-            color: #a3a6a9;
-            flex-grow: 1;
-        }
-
-        .download-button {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: #ffffff;
-            padding: 12px 25px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            margin-top: 20px;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        
-        .minecraft-ip-text {
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1.1em;
-            font-weight: bold;
-            color: #f7a049;
-            background-color: #242629;
-            padding: 8px;
-            border-radius: 6px;
-            border: 1px dashed #5865f2;
+        .header p {
+            font-size: 1.2em;
+            color: #cccccc;
             margin-top: 10px;
         }
 
-        .download-button:hover {
-            background-color: #677bc4;
+        .cheat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
         }
 
-        .widget-container {
-            margin-top: 50px;
-            background-color: var(--card-background);
-            border-radius: var(--border-radius);
+        .cheat-card {
+            background-color: rgba(40, 40, 40, 0.8);
+            border: 3px solid #555;
             padding: 20px;
-            box-shadow: var(--box-shadow);
-            display: inline-block;
-        }
-
-        .form-container {
-            margin-top: 50px;
-            background-color: var(--card-background);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            box-shadow: var(--box-shadow);
-            display: inline-block;
-            width: 100%;
-            max-width: 680px;
-        }
-
-        .form-container h2 {
-            color: #ffffff;
-            font-size: 1.8em;
-            margin-bottom: 15px;
-        }
-        
-        #scroll-to-bottom {
-            position: fixed;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 50%;
-            font-size: 1.5em;
-            cursor: pointer;
-            box-shadow: var(--box-shadow);
-            transition: background-color 0.3s ease;
-            z-index: 99;
-        }
-        
-        #scroll-to-bottom:hover {
-            background-color: #677bc4;
-        }
-
-        /* Yeni Eklenen Bölümlerin CSS'i */
-        .section-container {
-            padding: 50px 20px;
-            background-color: var(--card-background);
-            border-radius: var(--border-radius);
-            max-width: 800px;
-            margin: 40px auto;
-            box-shadow: var(--box-shadow);
-        }
-        .section-container h1, .section-container h2 {
-            color: #99aab5;
-        }
-        .team-members-wrapper {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin-top: 30px;
-        }
-        .team-member {
-            background-color: var(--background-color);
-            border-radius: 10px;
-            padding: 20px;
-            margin: 15px;
-            width: 250px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-        .team-member .profile-pic-container {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background-color: var(--primary-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto 15px;
-            overflow: hidden;
-        }
-        .team-member .profile-pic {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-        .team-member h2 {
-            margin: 10px 0;
-            color: #ffffff;
-        }
-        .team-member p {
-            color: #99aab5;
-            font-size: 0.9em;
-        }
-        .faq-item, .announcement-item {
-            background-color: var(--background-color);
-            border: 1px solid var(--primary-color);
             border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 15px;
-            text-align: left;
-        }
-        .faq-item h3, .announcement-item h3 {
-            color: var(--primary-color);
-            margin-top: 0;
-        }
-        .faq-item p, .announcement-item p {
-            color: #ccc;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            backdrop-filter: blur(5px);
         }
 
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2em;
-            }
+        .cheat-card:hover {
+            transform: translateY(-10px);
+            border-color: #4CAF50;
+            box-shadow: 0 0 25px rgba(76, 175, 80, 0.7);
         }
+
+        .cheat-card h2 {
+            font-size: 1.5em;
+            color: #4CAF50;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .cheat-card p {
+            font-size: 0.9em;
+            color: #bbbbbb;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background-color: #4CAF50;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1em;
+            border: 3px solid #388E3C;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0px 4px 0px #2a682c;
+            position: relative;
+        }
+
+        .btn:hover {
+            background-color: #5cb85c;
+            transform: translateY(-2px);
+            box-shadow: 0px 6px 0px #2a682c;
+        }
+
+        .btn:active {
+            transform: translateY(2px);
+            box-shadow: 0px 2px 0px #2a682c;
+        }
+
+        .footer {
+            margin-top: 60px;
+            padding: 20px;
+            font-size: 0.8em;
+            color: #888;
+            border-top: 2px solid #333;
+        }
+
     </style>
 </head>
 <body>
-    <div class="background-logo"></div>
+    <div class="overlay">
+        <div class="container">
+            <header class="header">
+                <h1>MineCraft Hile Merkezi</h1>
+                <p>En güncel ve en iyi hileler bir tık uzağında!</p>
+            </header>
 
-    <div class="container">
-        <h1>CREDOS Ailesine Hoş Geldiniz!</h1>
-        <p class="subtitle">Aşağıdan size özel yazılımlarımıza ve sunucularımıza ulaşabilirsiniz.</p>
-
-        <div class="download-grid">
-            <div class="download-card">
-                <div>
-                    <div class="card-icon">🎮</div>
-                    <div class="card-title">CREDOS Executor</div>
-                    <p class="card-description">Roblox oyunlarında en gelişmiş ve güvenli deneyimi sunan özel executor'ımız.</p>
+            <main class="cheat-grid">
+                <div class="cheat-card">
+                    <h2>Kill Aura</h2>
+                    <p>Etrafınızdaki tüm düşmanlara otomatik olarak saldırmanızı sağlar. PvP'de ve mob farm'larında rakipsiz olun.</p>
+                    <a href="#" class="btn">İndir</a>
                 </div>
-                <a href="https://dosya.co/q7p2j1ccq2p6/executor.zip.html" class="download-button" download>İndir</a>
-            </div>
 
-            <div class="download-card">
-                <div>
-                    <div class="card-icon">🛡️</div>
-                    <div class="card-title">CREDOS Spoofer</div>
-                    <p class="card-description">Valorant'ta ban yemeden oynamak için ihtiyacınız olan donanım spoofer'ı.</p>
+                <div class="cheat-card">
+                    <h2>Fly (Uçma)</h2>
+                    <p>Survival modunda bile özgürce uçun. Haritayı keşfetmek veya yüksek yerlere ulaşmak hiç bu kadar kolay olmamıştı.</p>
+                    <a href="#" class="btn">İndir</a>
                 </div>
-                <a href="https://dosya.co/d0wxmb35e4or/spoofer.zip.html" class="download-button" download>İndir</a>
-            </div>
-
-            <div class="download-card">
-                <div>
-                    <div class="card-icon">💬</div>
-                    <div class="card-title">Discord Sunucusu</div>
-                    <p class="card-description">Tüm duyurularımızdan haberdar olmak ve topluluğumuza katılmak için sunucumuza gelin.</p>
+                
+                <div class="cheat-card">
+                    <h2>X-Ray</h2>
+                    <p>Tüm blokları saydam hale getirerek elmas, zümrüt gibi değerli madenleri anında bulun. Madencilikte çığır açın.</p>
+                    <a href="#" class="btn">İndir</a>
                 </div>
-                <a href="https://discord.gg/FzYfVykrSq" class="download-button" target="_blank">Katıl</a>
-            </div>
-
-            <div class="download-card">
-                <div>
-                    <div class="card-icon">⛏️</div>
-                    <div class="card-title">Minecraft Sunucusu</div>
-                    <p class="card-description">Sunucumuza hemen katılmak için aşağıdaki butona tıklayarak IP'yi kopyala.</p>
+                
+                <div class="cheat-card">
+                    <h2>Aimbot</h2>
+                    <p>Yay ve arbalet kullanırken hedefleri otomatik olarak nişan alır. Okçuluk yeteneklerinizi zirveye taşıyın.</p>
+                    <a href="#" class="btn">İndir</a>
                 </div>
-                <button onclick="kopyala()" class="download-button" style="border: none;">IP'yi Kopyala</button>
-            </div>
-
-            <div class="download-card">
-                <div>
-                    <div class="card-icon">▶️</div>
-                    <div class="card-title">YouTube Kanalı</div>
-                    <p class="card-description">Videolarımızı takip etmek, yeniliklerden haberdar olmak için kanalımıza abone ol!</p>
+                
+                <div class="cheat-card">
+                    <h2>Speed</h2>
+                    <p>Normalden çok daha hızlı koşmanızı sağlar. Rakiplerinizden kaçın veya onlara hızla yetişin.</p>
+                    <a href="#" class="btn">İndir</a>
                 </div>
-                <a href="https://www.youtube.com/@CREDOSProject/" class="download-button" target="_blank">Abone Ol</a>
-            </div>
-        </div>
-
-        <div class="widget-container">
-            <h2>Discord'da Bize Katıl!</h2>
-            <p>Sunucumuzdaki anlık sohbeti, duyuruları ve üyeleri buradan takip et.</p>
-            <iframe src="https://discord.com/widget?id=1405954603639373885&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
-        </div>
-
-        <div class="form-container">
-            <h2>Bizimle İletişime Geçin</h2>
-            <p>Soru, öneri veya geri bildirimleriniz için formu doldurabilirsiniz.</p>
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdEDdZ-ailkKwdAKoKL_pyXkyB6FbyHpM0Gg8QwvjH5B7NNuw/viewform?embedded=true" width="100%" height="586" frameborder="0" marginheight="0" marginwidth="0">Yükleniyor…</iframe>
-        </div>
-
-        <div class="section-container">
-            <h1>CREDOS Ailesi</h1>
-            <div class="team-members-wrapper">
-                <div class="team-member">
-                    <div class="profile-pic-container">
-                        <img src="https://cdn.discordapp.com/attachments/1407091430232555682/1416185198386614343/logo_1.png?ex=68c5ecbe&is=68c49b3e&hm=2bbddd6597fdb0b5199e2efa8612c09b739fd60910c62688675f2e4fe94b9fa7&" alt="Credos Developer Logo" class="profile-pic">
-                    </div>
-                    <h2>Ana Geliştirici</h2>
-                    <p>Credos</p>
+                
+                <div class="cheat-card">
+                    <h2>NoFall</h2>
+                    <p>Yüksekten düşme hasarını tamamen ortadan kaldırır. Dağların zirvesinden korkusuzca atlayın.</p>
+                    <a href="#" class="btn">İndir</a>
                 </div>
-                <div class="team-member">
-                    <div class="profile-pic-container">
-                        <img src="https://cdn.discordapp.com/attachments/1407091430232555682/1416185198386614343/logo_1.png?ex=68c5ecbe&is=68c49b3e&hm=2bbddd6597fdb0b5199e2efa8612c09b739fd60910c62688675f2e4fe94b9fa7&" alt="Credos Developer Logo" class="profile-pic">
-                    </div>
-                    <h2>Kurucu</h2>
-                    <p>Credos</p>
-                </div>
-            </div>
-        </div>
+            </main>
 
-        <div class="section-container">
-            <h2>Sıkça Sorulan Sorular (SSS)</h2>
-            <div class="faq-item">
-                <h3>Sunucuya nasıl katılabilirim?</h3>
-                <p>Discord sunucumuza katılmak için ana sayfadaki davet linkini kullanabilirsiniz.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Oyun sunucusunda hile kullanırsam ne olur?</h3>
-                <p>Hile kullanımı kesinlikle yasaktır ve tespiti halinde sunucudan kalıcı olarak uzaklaştırılırsınız.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Yetkili olmak için ne yapmalıyım?</h3>
-                <p>Sunucumuzda yetkili alımları başladığında, duyurular kanalından bilgi verilecektir.</p>
-            </div>
-        </div>
-
-        <div class="section-container">
-            <h2>Son Duyurular</h2>
-            <div class="announcement-item">
-                <h3>Sunucu Bakımı</h3>
-                <p>Sunucumuz 28 Eylül Cumartesi günü 18:00-20:00 saatleri arasında bakımda olacaktır. Bu süreçte sunucuya erişim sağlanamayacaktır.</p>
-            </div>
-            <div class="announcement-item">
-                <h3>Yeni Oyun Modu</h3>
-                <p>Yakında sunucumuza yeni bir oyun modu eklenecektir. Detaylar için bizi takipte kalın!</p>
-            </div>
+            <footer class="footer">
+                <p>&copy; 2025 MineCraft Hile Merkezi. Tüm hakları saklıdır. Bu site eğlence amaçlıdır.</p>
+            </footer>
         </div>
     </div>
-    
-    <button id="scroll-to-bottom">↓</button>
-
-<script>
-    document.getElementById("scroll-to-bottom").addEventListener("click", function() {
-        window.scrollTo({
-            top: document.body.scrollHeight,
-            behavior: 'smooth'
-        });
-    });
-
-    function kopyala() {
-        var metin = "CREDOSBOXPVP.aternos.me";
-        navigator.clipboard.writeText(metin)
-            .then(() => {
-                alert("IP adresi kopyalandı: " + metin);
-            })
-            .catch(err => {
-                alert("Kopyalama başarısız oldu.");
-                console.error('Kopyalama hatası:', err);
-            });
-    }
-</script>
-
 </body>
 </html>
