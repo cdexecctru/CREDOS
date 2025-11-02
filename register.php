@@ -1,6 +1,8 @@
 <?php 
-include 'header.php'; 
+// header.php'yi dahil et
+require_once 'header.php'; 
 
+// Kayýt kontrolü mantýðý
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     header("Location: index.php"); 
     exit();
@@ -9,6 +11,8 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 $error = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    // AuthMe Kayýt Mantýðý (Önceki Yanýtlardaki Tam Kod)
     $username = strtolower(trim($_POST['username']));
     $email = trim($_POST['email']);
     $password = $_POST['password'];
@@ -16,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ip_address = $_SERVER['REMOTE_ADDR'];
     $regdate = time() * 1000; 
     
-    // Doðrulamalar... (Ayný kaldý)
+    // Doðrulamalar...
     if (empty($username) || empty($email) || empty($password) || empty($password_check)) {
         $error = "Lütfen tüm alanlarý doldurun.";
     } elseif (!isset($_POST['rules'])) {
@@ -31,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = "Geçerli bir e-posta adresi girin.";
     } else {
         try {
-            // Kullanýcý adý ve e-posta çakýþmasý kontrolü
+            // Çakýþma kontrolü
             $stmt = $pdo->prepare("SELECT username, email FROM " . AUTHME_TABLE . " WHERE username = :username OR email = :email LIMIT 1");
             $stmt->execute(['username' => $username, 'email' => $email]);
             $existing_user = $stmt->fetch();

@@ -1,6 +1,8 @@
 <?php 
-include 'header.php'; 
+// header.php'yi dahil et
+require_once 'header.php'; 
 
+// Giriþ kontrolü mantýðý
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     header("Location: index.php"); 
     exit();
@@ -9,11 +11,14 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 $error = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    // AuthMe Giriþ Mantýðý (Önceki Yanýtlardaki Tam Kod)
     $username = strtolower(trim($_POST['username'])); 
     $password = $_POST['password'];
     $ip_address = $_SERVER['REMOTE_ADDR'];
     $current_time = time(); 
 
+    // ... (Hata ve Veritabaný Ýþlemleri Mantýðý) ...
     if (empty($username) || empty($password)) {
         $error = "Lütfen kullanýcý adý ve þifrenizi girin.";
     } else {
@@ -25,27 +30,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($user) {
                 $authme_hash = $user['password'];
                 $is_valid = false;
-
-                // AuthMe SHA256 Kontrolü
                 if (strpos($authme_hash, '$SHA$') === 0) {
                     $db_hash = substr($authme_hash, 5); 
                     $input_hash = hash(HASH_ALGORITHM, $password); 
-
                     if ($db_hash === $input_hash) {
                         $is_valid = true;
                     }
                 } 
                 
                 if ($is_valid) {
-                    // Veritabaný alanlarýný güncelle (giriþ yapýldý)
                     $update_stmt = $pdo->prepare("UPDATE " . AUTHME_TABLE . " SET isLogged = 1, lastlogin = :time, ip = :ip WHERE username = :username");
-                    $update_stmt->execute([
-                        'time' => $current_time * 1000, 
-                        'ip' => $ip_address,
-                        'username' => $username
-                    ]);
+                    $update_stmt->execute(['time' => $current_time * 1000, 'ip' => $ip_address, 'username' => $username]);
 
-                    // Oturum baþlat
                     $_SESSION['logged_in'] = true;
                     $_SESSION['username'] = $user['username'];
 

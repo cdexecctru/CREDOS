@@ -1,12 +1,12 @@
 <?php
-// Oturumu başlat
+// PHP kodunun en başında session'ı başlat
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-// db.php dosyasını dahil et
-include_once 'db.php'; 
+// db.php'yi dahil et
+require_once 'db.php'; 
 
-// Çıkış yap butonu için basit bir logout dosyası gereklidir: logout.php
+// header.php'nin kalan HTML ve PHP yapısı
 ?>
 <!DOCTYPE html>
 <html lang="tr">
