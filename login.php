@@ -1,57 +1,65 @@
 <?php 
-// 1. Veritabaný baðlantýsýný ana dizinden dahil et
 include 'header.php'; 
-include 'db.php'; // Klasör kaldýrýldý
+
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+    header("Location: index.php"); 
+    exit();
+}
 
 $error = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username']);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = strtolower(trim($_POST['username'])); 
     $password = $_POST['password'];
+    $ip_address = $_SERVER['REMOTE_ADDR'];
+    $current_time = time(); 
 
     if (empty($username) || empty($password)) {
-        $error = "Kullanýcý adý ve þifre boþ býrakýlamaz.";
+        $error = "Lütfen kullanýcý adý ve þifrenizi girin.";
     } else {
-        // 2. Veritabanýndan kullanýcýyý bul
         try {
-            // AuthMe genellikle kullanýcý adýný küçük harfe çevirip kaydeder.
-            $stmt = $pdo->prepare("SELECT password, salt FROM " . AUTHME_TABLE . " WHERE username = ? LIMIT 1");
-            $stmt->execute([strtolower($username)]); 
-            $user_data = $stmt->fetch();
+            $stmt = $pdo->prepare("SELECT username, password, email FROM " . AUTHME_TABLE . " WHERE username = :username LIMIT 1");
+            $stmt->execute(['username' => $username]);
+            $user = $stmt->fetch();
 
-            if ($user_data) {
-                // 3. Þifre doðrulamasýný yap
-                $stored_hash = $user_data['password'];
-                $hashed_input = hash(HASH_ALGORITHM, $password); 
-                
-                // AuthMe'nin karmaþýk hash yapýsýný basitleþtirilmiþ kontrol
-                // NOT: Gerçek AuthMe doðrulamasý için özel bir kütüphane gerekir. 
-                // Þimdilik sadece basit SHA256 (veya eski AuthMe formatý) kontrolünü yapýyoruz.
-                
-                if (str_contains($stored_hash, '$sha$')) {
-                    // Modern AuthMe için bir doðrulama fonksiyonu simülasyonu
-                    // (Gerçek projede güvenli bir kütüphane kullanýlmalý)
-                    if (strpos($stored_hash, $hashed_input) !== false) {
-                        header("Location: index.php?success=login"); 
-                        exit();
-                    } else {
-                        $error = "Hatalý þifre girdiniz.";
+            if ($user) {
+                $authme_hash = $user['password'];
+                $is_valid = false;
+
+                // AuthMe SHA256 Kontrolü
+                if (strpos($authme_hash, '$SHA$') === 0) {
+                    $db_hash = substr($authme_hash, 5); 
+                    $input_hash = hash(HASH_ALGORITHM, $password); 
+
+                    if ($db_hash === $input_hash) {
+                        $is_valid = true;
                     }
-                } elseif ($hashed_input === $stored_hash) {
-                    // Basit SHA256 veya MD5 karþýlaþtýrmasý (Eski sürümler)
+                } 
+                
+                if ($is_valid) {
+                    // Veritabaný alanlarýný güncelle (giriþ yapýldý)
+                    $update_stmt = $pdo->prepare("UPDATE " . AUTHME_TABLE . " SET isLogged = 1, lastlogin = :time, ip = :ip WHERE username = :username");
+                    $update_stmt->execute([
+                        'time' => $current_time * 1000, 
+                        'ip' => $ip_address,
+                        'username' => $username
+                    ]);
+
+                    // Oturum baþlat
+                    $_SESSION['logged_in'] = true;
+                    $_SESSION['username'] = $user['username'];
+
                     header("Location: index.php?success=login"); 
                     exit();
                 } else {
                     $error = "Hatalý þifre girdiniz.";
                 }
-
             } else {
-                $error = "Bu kullanýcý adý veritabanýnda bulunamadý.";
+                $error = "Kullanýcý adý bulunamadý.";
             }
 
         } catch (PDOException $e) {
-            $error = "Bir veritabaný hatasý oluþtu. Lütfen tekrar deneyin.";
-            // Gerçek projede hatayý logla
+            $error = "Veritabaný hatasý oluþtu: Giriþ yapýlamadý.";
         }
     }
 }
@@ -65,17 +73,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p>Hesabýnýza eriþmek için bilgilerinizi girin.</p>
         </div>
         
-        <?php if (!empty($error)): ?>
+        <?php if ($error): ?>
             <div style="background-color: #f44336; color: white; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
                 <?php echo $error; ?>
             </div>
         <?php endif; ?>
-
-        <form action="login.php" method="POST" class="auth-form">
+        
+        <form action="#" method="POST" class="auth-form">
             
             <div class="form-group">
                 <label for="username"><i class="fas fa-user"></i> Kullanýcý Adý</label>
-                <input type="text" id="username" name="username" placeholder="Kullanýcý Adýnýz" required>
+                <input type="text" id="username" name="username" placeholder="Kullanýcý Adýnýz" 
+                       value="<?php echo isset($username) ? htmlspecialchars($username) : ''; ?>" required>
             </div>
             
             <div class="form-group">

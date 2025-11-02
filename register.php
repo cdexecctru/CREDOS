@@ -1,89 +1,75 @@
 <?php 
 include 'header.php'; 
-include 'db.php'; // Ana dizindeki db.php dosyasýný dahil et
 
-$error = '';
-$success = '';
-
-// AuthMe'nin kullandýðý formatta hash oluþturma fonksiyonu
-// Bu, Minecraft sunucusunun da kullanýcýyý tanýmasý için kritiktir.
-function createAuthMeHash($password) {
-    // AuthMe'nin SHA256 formatýný taklit ediyoruz: $sha$<salt>$$<hash>
-    // Gerçek AuthMe, daha karmaþýk bir salt ve hash mekanizmasý kullanýr. 
-    // Basit bir SHA256 hash'i ve rastgele bir salt ile simülasyon yapalým.
-    
-    // Rastgele bir 16 karakterli salt oluþtur
-    $salt = substr(bin2hex(random_bytes(8)), 0, 16); 
-    
-    // AuthMe'nin istediði formatta þifreyi hazýrlar: password + salt
-    $combined = $password . $salt;
-    
-    // Þifreyi SHA256 ile hashle
-    $hashed_password = hash(AUTHME_TABLE, $combined);
-    
-    // AuthMe'nin tam hash formatýný döndür
-    return "\$sha\$$salt\$$hashed_password"; 
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+    header("Location: index.php"); 
+    exit();
 }
 
+$error = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username']);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = strtolower(trim($_POST['username']));
     $email = trim($_POST['email']);
     $password = $_POST['password'];
     $password_check = $_POST['password_check'];
-
-    // Temel kontroller
+    $ip_address = $_SERVER['REMOTE_ADDR'];
+    $regdate = time() * 1000; 
+    
+    // Doðrulamalar... (Ayný kaldý)
     if (empty($username) || empty($email) || empty($password) || empty($password_check)) {
-        $error = "Tüm alanlarý doldurmak zorunludur.";
+        $error = "Lütfen tüm alanlarý doldurun.";
+    } elseif (!isset($_POST['rules'])) {
+        $error = "Kurallarý kabul etmelisiniz.";
     } elseif ($password !== $password_check) {
-        $error = "Girdiðiniz þifreler eþleþmiyor.";
-    } elseif (strlen($username) < 3 || !preg_match('/^[a-zA-Z0-9_]+$/', $username)) {
-        $error = "Kullanýcý adý en az 3 karakter olmalý ve sadece harf, rakam ve alt çizgi içerebilir.";
-    } elseif (strlen($password) < 6) {
-        $error = "Þifre en az 6 karakter olmalýdýr.";
+        $error = "Þifreler eþleþmiyor.";
+    } elseif (strlen($username) < 3 || strlen($username) > 16) { 
+        $error = "Kullanýcý adý 3-16 karakter olmalýdýr.";
+    } elseif (strlen($password) < 8) { 
+        $error = "Þifreniz en az 8 karakter olmalýdýr.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error = "Geçerli bir e-posta adresi girin.";
     } else {
         try {
-            // 1. Kullanýcý adý benzersizlik kontrolü
-            $stmt = $pdo->prepare("SELECT COUNT(*) FROM " . AUTHME_TABLE . " WHERE username = ?");
-            $stmt->execute([strtolower($username)]);
-            if ($stmt->fetchColumn() > 0) {
-                $error = "Bu kullanýcý adý zaten alýnmýþ.";
-            } else {
-                // 2. E-posta benzersizlik kontrolü (Opsiyonel, AuthMe bunu zorunlu kýlmaz ama web için iyidir)
-                // AuthMe tablosunda genellikle e-posta sütunu bulunur (varsa kontrol et)
-                $email_check_stmt = $pdo->prepare("SELECT COUNT(*) FROM " . AUTHME_TABLE . " WHERE email = ?");
-                $email_check_stmt->execute([$email]);
-                if ($email_check_stmt->fetchColumn() > 0) {
-                     $error = "Bu e-posta adresi zaten kayýtlý.";
-                } else {
-                    
-                    // 3. AuthMe uyumlu þifre hash'i oluþtur
-                    $authme_password_hash = createAuthMeHash($password);
-                    
-                    // 4. Veritabanýna kaydet
-                    $insert_stmt = $pdo->prepare("INSERT INTO " . AUTHME_TABLE . " (username, password, email, registrationdate, ip) 
-                                                  VALUES (?, ?, ?, ?, ?)");
-                    
-                    // Kullanýcý adýný küçük harfle kaydet (AuthMe standartý)
-                    $username_lower = strtolower($username);
-                    $registration_date = time(); // Unix zaman damgasý
-                    $ip_address = $_SERVER['REMOTE_ADDR']; // Kayýt olan kullanýcýnýn IP adresi
-                    
-                    $insert_stmt->execute([
-                        $username_lower,
-                        $authme_password_hash,
-                        $email,
-                        $registration_date,
-                        $ip_address
-                    ]);
+            // Kullanýcý adý ve e-posta çakýþmasý kontrolü
+            $stmt = $pdo->prepare("SELECT username, email FROM " . AUTHME_TABLE . " WHERE username = :username OR email = :email LIMIT 1");
+            $stmt->execute(['username' => $username, 'email' => $email]);
+            $existing_user = $stmt->fetch();
 
-                    $success = "Kayýt baþarýlý! Þimdi <a href='login.php' class='auth-link' style='color: #4CAF50;'>Giriþ Yap</a>abilirsiniz.";
+            if ($existing_user) {
+                $error = ($existing_user['username'] == $username) ? "Bu kullanýcý adý zaten kayýtlýdýr." : "Bu e-posta adresi zaten kayýtlýdýr.";
+            } else {
+                
+                // Þifreyi AuthMe uyumlu SHA256 formatýna çevir
+                $hashed_password = hash(HASH_ALGORITHM, $password); 
+                $authme_hash = '$SHA$' . $hashed_password;
+
+                // Veritabanýna kaydý ekle
+                $stmt = $pdo->prepare("INSERT INTO " . AUTHME_TABLE . " (username, password, email, regdate, regip, lastlogin) 
+                                       VALUES (:username, :password, :email, :regdate, :regip, 0)");
+                
+                $result = $stmt->execute([
+                    'username' => $username,
+                    'password' => $authme_hash,
+                    'email' => $email,
+                    'regdate' => $regdate,
+                    'regip' => $ip_address
+                ]);
+
+                if ($result) {
+                    // Kayýt baþarýlý, otomatik giriþ yap
+                    $_SESSION['logged_in'] = true;
+                    $_SESSION['username'] = $username;
+                    
+                    header("Location: index.php?success=register"); 
+                    exit();
+                } else {
+                    $error = "Kayýt iþlemi baþarýsýz oldu.";
                 }
             }
 
         } catch (PDOException $e) {
-            $error = "Kayýt sýrasýnda bir veritabaný hatasý oluþtu. Lütfen tekrar deneyin.";
-            // Geliþtirme için: $error .= " Detay: " . $e->getMessage();
+            $error = "Veritabaný hatasý oluþtu: Kayýt yapýlamadý.";
         }
     }
 }
@@ -97,28 +83,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p>Sunucumuza katýlmak için hesap oluþturun.</p>
         </div>
         
-        <?php if (!empty($error)): ?>
+        <?php if ($error): ?>
             <div style="background-color: #f44336; color: white; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
                 <?php echo $error; ?>
             </div>
         <?php endif; ?>
         
-        <?php if (!empty($success)): ?>
-            <div style="background-color: #4CAF50; color: white; padding: 10px; border-radius: 5px; margin-bottom: 15px;">
-                <?php echo $success; ?>
-            </div>
-        <?php endif; ?>
-        
-        <form action="register.php" method="POST" class="auth-form">
+        <form action="#" method="POST" class="auth-form">
             
             <div class="form-group">
                 <label for="reg-username"><i class="fas fa-user"></i> Kullanýcý Adý</label>
-                <input type="text" id="reg-username" name="username" placeholder="Minecraft Kullanýcý Adý" required>
+                <input type="text" id="reg-username" name="username" placeholder="Minecraft Kullanýcý Adý" 
+                       value="<?php echo isset($username) ? htmlspecialchars($username) : ''; ?>" required>
             </div>
             
             <div class="form-group">
                 <label for="reg-email"><i class="fas fa-envelope"></i> E-Posta</label>
-                <input type="email" id="reg-email" name="email" placeholder="Geçerli E-Posta Adresiniz" required>
+                <input type="email" id="reg-email" name="email" placeholder="Geçerli E-Posta Adresiniz" 
+                       value="<?php echo isset($email) ? htmlspecialchars($email) : ''; ?>" required>
             </div>
             
             <div class="form-group">
