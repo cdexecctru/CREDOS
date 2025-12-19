@@ -10,7 +10,8 @@
             --color-primary: #a855f7; 
             --color-bg: #0a0a0c;
             --color-card: #16161a;
-            --color-minecraft: #ffaa00; /* Sunucu butonu için altın sarısı */
+            --color-minecraft: #ffaa00;
+            --color-discord: #5865F2;
             --glow: 0 0 20px rgba(168, 85, 247, 0.6);
             --border-glow: 0 0 10px rgba(168, 85, 247, 0.3);
         }
@@ -55,12 +56,7 @@
             margin-bottom: 20px;
             transition: 0.4s ease-in-out;
             object-fit: cover;
-            background: rgba(168, 85, 247, 0.05);
             filter: drop-shadow(var(--glow));
-        }
-        .profile-img:hover { 
-            transform: scale(1.1) rotate(5deg); 
-            filter: drop-shadow(0 0 30px var(--color-primary));
         }
 
         h1 {
@@ -124,6 +120,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+            gap: 12px; /* İkon ve yazı arasındaki boşluk */
         }
 
         .link-card:hover {
@@ -133,24 +131,29 @@
             background: rgba(168, 85, 247, 0.08);
         }
 
-        /* Minecraft Sunucu Butonu Özel Stil */
         .minecraft-btn {
             border: 1px solid var(--color-minecraft);
-            background: rgba(255, 170, 0, 0.05);
             color: var(--color-minecraft);
         }
         .minecraft-btn:hover {
-            border-color: var(--color-minecraft);
             box-shadow: 0 0 20px rgba(255, 170, 0, 0.4);
-            background: rgba(255, 170, 0, 0.1);
             color: #fff;
         }
 
         .discord-id {
-            background: #5865F2; 
+            background: var(--color-discord);
             border: none !important;
         }
-        .discord-id:hover { box-shadow: 0 0 25px rgba(88, 101, 242, 0.6); }
+        .discord-id:hover {
+            box-shadow: 0 0 25px rgba(88, 101, 242, 0.6);
+        }
+
+        /* İkonların Genel Boyutu */
+        .btn-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
 
         footer {
             margin-top: 50px;
@@ -190,12 +193,14 @@
             </a>
 
             <a href="https://github.com/cdexecctru" target="_blank" class="link-card">
+                <img src="https://images.icon-icons.com/3685/PNG/512/github_logo_icon_229278.png" class="btn-icon" alt="GitHub">
                 <span>GITHUB REPOSITORIES</span>
             </a>
             
-            <a href="javascript:void(0)" class="link-card discord-id" onclick="copyDiscord()">
+            <div class="link-card discord-id" onclick="copyDiscord()">
+                <img src="https://cdn.discordapp.com/attachments/1449436304826699796/1451610928889204877/WmVDdhSvCgKy1Uxds4zVwPL8PobKOfIh3fkRBEEQBEEQBEEQBEEQBEEQBEEQBEEQBEEQBEEif8ArwqAEHDt6QEAAAAASUVORK5CYII.png?ex=6946cd87&is=69457c07&hm=680602f0589dac69480b49ef85db70bb9c99d2249165ea3a9aeb7dd516eeea9c&" class="btn-icon" alt="Discord">
                 <span>DISCORD: <strong id="dc">credos_.</strong></span>
-            </a>
+            </div>
         </div>
 
         <footer>
