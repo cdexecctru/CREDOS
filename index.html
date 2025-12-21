@@ -11,6 +11,7 @@
             --color-bg: #0a0a0c;
             --color-card: #16161a;
             --color-minecraft: #ffaa00;
+            --color-music: #1DB954; /* Spotify Green for Music */
             --color-discord: #5865F2;
             --glow: 0 0 20px rgba(168, 85, 247, 0.6);
             --border-glow: 0 0 10px rgba(168, 85, 247, 0.3);
@@ -131,6 +132,16 @@
             background: rgba(168, 85, 247, 0.08);
         }
 
+        /* Music Button Special Style */
+        .music-btn {
+            border: 1px solid var(--color-music);
+            color: #fff;
+        }
+        .music-btn:hover {
+            box-shadow: 0 0 20px rgba(29, 185, 84, 0.4);
+            background: rgba(29, 185, 84, 0.1);
+        }
+
         .minecraft-btn {
             border: 1px solid var(--color-minecraft);
             color: var(--color-minecraft);
@@ -187,6 +198,11 @@
         </div>
 
         <div class="links-group">
+            <a href="https://music.credos.qzz.io" target="_blank" class="link-card music-btn">
+                <img src="https://raw.githubusercontent.com/cdexecctru/fileupld/main/p0iuu8ex/credos_music_logo.png" class="btn-icon" alt="Music Logo" style="border-radius: 50%;">
+                <span>CREDOS MUSIC PLAYER</span>
+            </a>
+
             <a href="https://file.credos.qzz.io" target="_blank" class="link-card">
                 <img src="https://cdn-icons-png.flaticon.com/512/12433/12433942.png" class="btn-icon" alt="File Center" style="filter: invert(1);">
                 <span>CREDOS FILE CENTER</span>
@@ -220,5 +236,4 @@
         }
     </script>
 </body>
-
 </html>
