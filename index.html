@@ -11,7 +11,8 @@
             --color-bg: #0a0a0c;
             --color-card: #16161a;
             --color-minecraft: #ffaa00;
-            --color-music: #1DB954; /* Spotify Green for Music */
+            --color-music: #1DB954; 
+            --color-font: #00d2ff; /* Font Generator için yeni renk */
             --color-discord: #5865F2;
             --glow: 0 0 20px rgba(168, 85, 247, 0.6);
             --border-glow: 0 0 10px rgba(168, 85, 247, 0.3);
@@ -132,45 +133,22 @@
             background: rgba(168, 85, 247, 0.08);
         }
 
-        /* Music Button Special Style */
-        .music-btn {
-            border: 1px solid var(--color-music);
-            color: #fff;
-        }
-        .music-btn:hover {
-            box-shadow: 0 0 20px rgba(29, 185, 84, 0.4);
-            background: rgba(29, 185, 84, 0.1);
-        }
+        .music-btn { border: 1px solid var(--color-music); color: #fff; }
+        .music-btn:hover { box-shadow: 0 0 20px rgba(29, 185, 84, 0.4); background: rgba(29, 185, 84, 0.1); }
 
-        .minecraft-btn {
-            border: 1px solid var(--color-minecraft);
-            color: var(--color-minecraft);
-        }
-        .minecraft-btn:hover {
-            box-shadow: 0 0 20px rgba(255, 170, 0, 0.4);
-            color: #fff;
-        }
+        /* Font Generator Butonu */
+        .font-btn { border: 1px solid var(--color-font); color: #fff; }
+        .font-btn:hover { box-shadow: 0 0 20px rgba(0, 210, 255, 0.4); background: rgba(0, 210, 255, 0.1); }
 
-        .discord-id {
-            background: var(--color-discord);
-            border: none !important;
-        }
-        .discord-id:hover {
-            box-shadow: 0 0 25px rgba(88, 101, 242, 0.6);
-        }
+        .minecraft-btn { border: 1px solid var(--color-minecraft); color: var(--color-minecraft); }
+        .minecraft-btn:hover { box-shadow: 0 0 20px rgba(255, 170, 0, 0.4); color: #fff; }
 
-        .btn-icon {
-            width: 24px;
-            height: 24px;
-            object-fit: contain;
-        }
+        .discord-id { background: var(--color-discord); border: none !important; }
+        .discord-id:hover { box-shadow: 0 0 25px rgba(88, 101, 242, 0.6); }
 
-        footer {
-            margin-top: 50px;
-            font-size: 0.7rem;
-            color: #555;
-            letter-spacing: 1px;
-        }
+        .btn-icon { width: 24px; height: 24px; object-fit: contain; }
+
+        footer { margin-top: 50px; font-size: 0.7rem; color: #555; letter-spacing: 1px; }
     </style>
 </head>
 <body>
@@ -201,6 +179,11 @@
             <a href="https://music.credos.qzz.io" target="_blank" class="link-card music-btn">
                 <img src="https://raw.githubusercontent.com/cdexecctru/fileupld/main/p0iuu8ex/credos_music_logo.png" class="btn-icon" alt="Music Logo" style="border-radius: 50%;">
                 <span>CREDOS MUSIC PLAYER</span>
+            </a>
+
+            <a href="https://font.credos.qzz.io" target="_blank" class="link-card font-btn">
+                <img src="https://www.shutterstock.com/image-vector/black-white-crayon-kids-font-260nw-2593051791.jpg" class="btn-icon" alt="Font Logo" style="filter: invert(1);">
+                <span>CREDOS FONT GENERATOR</span>
             </a>
 
             <a href="https://file.credos.qzz.io" target="_blank" class="link-card">
