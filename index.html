@@ -10,13 +10,14 @@
         :root {
             --color-primary: #a855f7; 
             --color-bg: #000;
-            --color-card: rgba(0, 0, 0, 0.2); 
+            --color-card: rgba(0, 0, 0, 0.4); 
             --color-minecraft: #ffaa00;
             --color-music: #1DB954; 
             --color-font: #00d2ff;
             --color-discord: #5865F2;
-            --white-glow: 0 0 35px rgba(255, 255, 255, 0.3); /* Kart Glow */
-            --intense-glow: 0 0 15px #fff, 0 0 30px #fff; /* Bar Şiddetli Glow */
+            --white-glow: 0 0 40px rgba(255, 255, 255, 0.35);
+            /* ŞİDDETLİ GLOW */
+            --intense-glow: 0 0 20px #fff, 0 0 40px #fff, 0 0 60px rgba(255, 255, 255, 0.5); 
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -32,7 +33,6 @@
             overflow: hidden;
         }
 
-        /* GİRİŞ EKRANI */
         #enter-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -40,9 +40,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 10000;
+            z-index: 99999;
             cursor: pointer;
-            transition: opacity 0.8s ease;
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         #enter-screen span {
@@ -50,11 +50,11 @@
             letter-spacing: 5px;
             font-size: 1.5rem;
             animation: pulse 1.5s infinite;
+            text-shadow: 0 0 10px #fff;
         }
 
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.95); } }
 
-        /* ARKA PLAN VİDEO */
         #bg-video {
             position: fixed;
             right: 0; bottom: 0; min-width: 100%; min-height: 100%;
@@ -63,45 +63,45 @@
             filter: brightness(0.4);
         }
 
-        /* SES KARTI (BEYAZ GLOWLU) */
+        /* SES KARTI VE KART ARKASI BEYAZ GLOW */
         .volume-card {
             position: fixed;
             top: 30px; left: 30px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 12px 20px;
-            border-radius: 15px;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.07);
+            padding: 12px 22px;
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             display: flex;
             align-items: center;
             gap: 15px;
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.2); /* Kart Glow */
-            z-index: 1000;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.25); /* Kart arkası glow */
+            z-index: 1001;
         }
 
         /* ŞİDDETLİ GLOWLU BAR */
         #volume-bar {
             -webkit-appearance: none;
             width: 90px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 5px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
             outline: none;
-            box-shadow: var(--intense-glow);
+            box-shadow: var(--intense-glow); 
         }
 
         #volume-bar::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 14px; height: 14px;
+            width: 16px; height: 16px;
             background: #fff;
             border-radius: 50%;
             cursor: pointer;
-            box-shadow: var(--intense-glow); /* Topçuk Şiddetli Glow */
+            box-shadow: var(--intense-glow); 
+            border: 2px solid #fff;
         }
 
-        #mute-icon { cursor: pointer; color: #fff; filter: drop-shadow(0 0 8px #fff); }
+        #mute-icon { cursor: pointer; color: #fff; font-size: 1.3rem; filter: drop-shadow(0 0 10px #fff); }
 
-        /* ANA KONTEYNER (YATAY) */
         .container {
             width: 90%;
             max-width: 950px;
@@ -109,15 +109,15 @@
             background: var(--color-card);
             backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 30px;
+            border-radius: 35px;
             box-shadow: var(--white-glow);
             display: flex;
             flex-direction: row;
             align-items: center;
             gap: 50px;
             opacity: 0;
-            transform: scale(0.95);
-            transition: all 1s ease;
+            transform: translateY(30px);
+            transition: all 1.2s ease;
         }
 
         .profile-section { flex: 1; text-align: center; }
@@ -126,17 +126,17 @@
         .profile-img {
             width: 160px; height: 160px;
             border-radius: 50%;
-            border: 2px solid var(--color-primary);
-            box-shadow: 0 0 25px rgba(168, 85, 247, 0.4);
+            border: 3px solid var(--color-primary);
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.4);
             margin-bottom: 20px;
             object-fit: cover;
         }
 
-        h1 { font-family: 'Bungee', cursive; font-size: 2.5rem; margin-bottom: 5px; }
-        .badge { display: inline-block; background: rgba(168, 85, 247, 0.15); color: var(--color-primary); padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; border: 1px solid var(--color-primary); margin-bottom: 20px; }
+        h1 { font-family: 'Bungee', cursive; font-size: 2.8rem; margin-bottom: 5px; }
+        .badge { display: inline-block; background: rgba(168, 85, 247, 0.15); color: var(--color-primary); padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; border: 1px solid var(--color-primary); margin-bottom: 20px; }
 
-        .tech-stack { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
-        .tech-item { font-size: 0.7rem; background: rgba(255, 255, 255, 0.08); padding: 4px 10px; border-radius: 5px; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .tech-stack { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        .tech-item { font-size: 0.75rem; background: rgba(255, 255, 255, 0.08); padding: 5px 12px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.15); }
 
         .links-group { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .full-width { grid-column: span 2; }
@@ -144,22 +144,22 @@
         .link-card {
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 16px; border-radius: 12px;
-            text-decoration: none; color: #fff; font-weight: bold; font-size: 0.85rem;
+            padding: 18px; border-radius: 15px;
+            text-decoration: none; color: #fff; font-weight: bold; font-size: 0.9rem;
             display: flex; align-items: center; justify-content: center; gap: 12px;
-            transition: 0.3s;
+            transition: 0.4s;
         }
 
-        .link-card:hover { background: rgba(255, 255, 255, 0.1); border-color: #fff; transform: translateY(-2px); }
+        .link-card:hover { background: rgba(255, 255, 255, 0.12); border-color: #fff; transform: scale(1.03); }
 
-        .btn-icon { width: 22px; height: 22px; object-fit: contain; }
+        .btn-icon { width: 24px; height: 24px; object-fit: contain; }
         .music-btn { border-color: var(--color-music); }
         .font-btn { border-color: var(--color-font); }
         .minecraft-btn { border-color: var(--color-minecraft); color: var(--color-minecraft); }
         .discord-id { background: var(--color-discord); border: none !important; }
 
         @media (max-width: 850px) {
-            .container { flex-direction: column; text-align: center; max-height: 90vh; overflow-y: auto; }
+            .container { flex-direction: column; text-align: center; padding: 30px; }
             .links-group { grid-template-columns: 1fr; }
             .full-width { grid-column: span 1; }
         }
@@ -168,15 +168,14 @@
 <body>
 
     <div id="enter-screen" onclick="initSite()">
-        <span>ᴄʟɪᴄᴋ ᴛᴏ ᴇɴᴛᴇʀ...</span>
+        <span>CLICK TO ENTER...</span>
     </div>
 
     <div class="volume-card">
         <i class="fas fa-volume-up" id="mute-icon" onclick="toggleMute()"></i>
-        <input type="range" id="volume-bar" min="0" max="100" value="100">
-    </div>
+        <input type="range" id="volume-bar" min="0" max="100" value="100"> </div>
 
-    <video loop playsinline id="bg-video">
+    <video loop playsinline id="bg-video" preload="auto">
         <source src="video.mp4" type="video/mp4">
     </video>
 
@@ -186,9 +185,8 @@
             <h1>CREDOS</h1>
             <div class="badge">Full-Stack Developer</div>
             <div class="tech-stack">
-                <span class="tech-item">HTML</span><span class="tech-item">CSS</span>
-                <span class="tech-item">JavaScript</span><span class="tech-item">Node.js</span>
-                <span class="tech-item">Python</span><span class="tech-item">Java</span><span class="tech-item">C#</span>
+                <span class="tech-item">HTML</span><span class="tech-item">CSS</span><span class="tech-item">JS</span>
+                <span class="tech-item">Node.js</span><span class="tech-item">Python</span><span class="tech-item">C#</span>
             </div>
         </div>
 
@@ -215,7 +213,7 @@
                 </a>
                 <div class="link-card discord-id full-width" onclick="copyDiscord()">
                     <img src="https://raw.githubusercontent.com/cdexecctru/fileupld/main/eb2gi13v/discord.webp" class="btn-icon">
-                    <span>DISCORD: <strong id="dc">credos_.</strong></span>
+                    <span>DISCORD: <strong>credos_.</strong></span>
                 </div>
             </div>
         </div>
@@ -229,13 +227,20 @@
         const container = document.getElementById('main-container');
 
         function initSite() {
+            video.load(); 
             enterScreen.style.opacity = '0';
+            
             setTimeout(() => {
                 enterScreen.style.display = 'none';
                 container.style.opacity = '1';
-                container.style.transform = 'scale(1)';
-                video.play();
-                video.volume = volBar.value / 100;
+                container.style.transform = 'translateY(0)';
+                
+                // Başlangıç sesi %100
+                video.volume = 1.0; 
+                let playPromise = video.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => console.log(error));
+                }
             }, 800);
         }
 
@@ -249,7 +254,7 @@
                 video.volume = 0; volBar.value = 0;
                 muteIcon.className = "fas fa-volume-mute";
             } else {
-                video.volume = 0.3; volBar.value = 30;
+                video.volume = 1.0; volBar.value = 100;
                 muteIcon.className = "fas fa-volume-up";
             }
         }
