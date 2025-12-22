@@ -4,20 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Credos | Full-Stack Developer</title>
+    
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/cdexecctru/fileupld/main/dhk80vcw/credosprojectlogo.png">
+    
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Bungee&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --color-primary: #a855f7; 
             --color-bg: #000;
-            --color-card: rgba(0, 0, 0, 0.4); 
+            --color-card: rgba(0, 0, 0, 0.45); 
             --color-minecraft: #ffaa00;
             --color-music: #1DB954; 
             --color-font: #00d2ff;
             --color-discord: #5865F2;
             --white-glow: 0 0 40px rgba(255, 255, 255, 0.35);
-            /* ŞİDDETLİ GLOW */
-            --intense-glow: 0 0 20px #fff, 0 0 40px #fff, 0 0 60px rgba(255, 255, 255, 0.5); 
+            --intense-glow: 0 0 15px #fff, 0 0 35px #fff, 0 0 50px rgba(255, 255, 255, 0.6); 
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -31,6 +33,7 @@
             align-items: center;
             min-height: 100vh;
             overflow: hidden;
+            cursor: crosshair;
         }
 
         #enter-screen {
@@ -40,7 +43,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 99999;
+            z-index: 10000;
             cursor: pointer;
             transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -53,7 +56,7 @@
             text-shadow: 0 0 10px #fff;
         }
 
-        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.95); } }
+        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.2; transform: scale(0.95); } }
 
         #bg-video {
             position: fixed;
@@ -63,11 +66,10 @@
             filter: brightness(0.4);
         }
 
-        /* SES KARTI VE KART ARKASI BEYAZ GLOW */
         .volume-card {
             position: fixed;
             top: 30px; left: 30px;
-            background: rgba(255, 255, 255, 0.07);
+            background: rgba(255, 255, 255, 0.08);
             padding: 12px 22px;
             border-radius: 20px;
             backdrop-filter: blur(20px);
@@ -75,11 +77,10 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.25); /* Kart arkası glow */
+            box-shadow: 0 0 35px rgba(255, 255, 255, 0.25);
             z-index: 1001;
         }
 
-        /* ŞİDDETLİ GLOWLU BAR */
         #volume-bar {
             -webkit-appearance: none;
             width: 90px;
@@ -145,7 +146,7 @@
             background: rgba(255, 255, 255, 0.04);
             border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 18px; border-radius: 15px;
-            text-decoration: none; color: #fff; font-weight: bold; font-size: 0.9rem;
+            text-decoration: none; color: #fff; font-weight: bold; font-size: 0.85rem;
             display: flex; align-items: center; justify-content: center; gap: 12px;
             transition: 0.4s;
         }
@@ -173,10 +174,11 @@
 
     <div class="volume-card">
         <i class="fas fa-volume-up" id="mute-icon" onclick="toggleMute()"></i>
-        <input type="range" id="volume-bar" min="0" max="100" value="100"> </div>
+        <input type="range" id="volume-bar" min="0" max="100" value="100"> 
+    </div>
 
     <video loop playsinline id="bg-video" preload="auto">
-        <source src="video.mp4" type="video/mp4">
+        <source src="https://raw.githubusercontent.com/cdexecctru/fileupld/main/3egscaya/video.mp4" type="video/mp4">
     </video>
 
     <div class="container" id="main-container">
@@ -194,7 +196,7 @@
             <div class="links-group">
                 <a href="https://music.credos.qzz.io" target="_blank" class="link-card music-btn">
                     <img src="https://raw.githubusercontent.com/cdexecctru/fileupld/main/p0iuu8ex/credos_music_logo.png" class="btn-icon" style="border-radius: 50%;">
-                    <span>CREDOS MUSIC PLAYER</span>
+                    <span>MUSIC PLAYER</span>
                 </a>
                 <a href="https://font.credos.qzz.io" target="_blank" class="link-card font-btn">
                     <img src="https://www.shutterstock.com/image-vector/black-white-crayon-kids-font-260nw-2593051791.jpg" class="btn-icon" style="filter: invert(1);">
@@ -211,7 +213,7 @@
                     <img src="https://images.icon-icons.com/3685/PNG/512/github_logo_icon_229278.png" class="btn-icon">
                     <span>GITHUB REPOSITORIES</span>
                 </a>
-                <div class="link-card discord-id full-width" onclick="copyDiscord()">
+                <div class="link-card discord-id full-width" onclick="copyDiscord()" style="cursor: pointer;">
                     <img src="https://raw.githubusercontent.com/cdexecctru/fileupld/main/eb2gi13v/discord.webp" class="btn-icon">
                     <span>DISCORD: <strong>credos_.</strong></span>
                 </div>
@@ -227,20 +229,13 @@
         const container = document.getElementById('main-container');
 
         function initSite() {
-            video.load(); 
             enterScreen.style.opacity = '0';
-            
             setTimeout(() => {
                 enterScreen.style.display = 'none';
                 container.style.opacity = '1';
                 container.style.transform = 'translateY(0)';
-                
-                // Başlangıç sesi %100
                 video.volume = 1.0; 
-                let playPromise = video.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(error => console.log(error));
-                }
+                video.play().catch(e => console.log(e));
             }, 800);
         }
 
