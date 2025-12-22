@@ -5,217 +5,258 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Credos | Full-Stack Developer</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Bungee&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --color-primary: #a855f7; 
-            --color-bg: #0a0a0c;
-            --color-card: #16161a;
+            --color-bg: #000;
+            --color-card: rgba(0, 0, 0, 0.2); 
             --color-minecraft: #ffaa00;
             --color-music: #1DB954; 
-            --color-font: #00d2ff; /* Font Generator için yeni renk */
+            --color-font: #00d2ff;
             --color-discord: #5865F2;
-            --glow: 0 0 20px rgba(168, 85, 247, 0.6);
-            --border-glow: 0 0 10px rgba(168, 85, 247, 0.3);
+            --white-glow: 0 0 35px rgba(255, 255, 255, 0.3); /* Kart Glow */
+            --intense-glow: 0 0 15px #fff, 0 0 30px #fff; /* Bar Şiddetli Glow */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-color: var(--color-bg);
-            color: #e0e0e0;
+            color: #fff;
             font-family: 'Roboto', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow-x: hidden;
+            overflow: hidden;
         }
 
-        .bg-glow {
+        /* GİRİŞ EKRANI */
+        #enter-screen {
             position: fixed;
-            width: 300px;
-            height: 300px;
-            background: var(--color-primary);
-            filter: blur(120px);
-            opacity: 0.15;
-            z-index: -1;
-            border-radius: 50%;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 450px;
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .profile-img {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            border: 3px solid var(--color-primary);
-            box-shadow: var(--glow);
-            margin-bottom: 20px;
-            transition: 0.4s ease-in-out;
-            object-fit: cover;
-            filter: drop-shadow(var(--glow));
-        }
-
-        h1 {
-            font-family: 'Bungee', cursive;
-            font-size: 2.2rem;
-            color: #fff;
-            text-shadow: var(--glow);
-            margin-bottom: 5px;
-        }
-
-        .badge {
-            display: inline-block;
-            background: rgba(168, 85, 247, 0.15);
-            color: var(--color-primary);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            border: 1px solid var(--color-primary);
-            margin-bottom: 25px;
-            text-transform: uppercase;
-        }
-
-        .description {
-            font-size: 0.95rem;
-            color: #aaa;
-            margin-bottom: 30px;
-            line-height: 1.5;
-        }
-
-        .tech-stack {
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000;
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
-            margin-bottom: 40px;
-        }
-        .tech-item {
-            font-size: 0.75rem;
-            background: #1a1a20;
-            padding: 4px 12px;
-            border-radius: 5px;
-            border: 1px solid #333;
+            align-items: center;
+            z-index: 10000;
+            cursor: pointer;
+            transition: opacity 0.8s ease;
         }
 
-        .links-group {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+        #enter-screen span {
+            font-family: 'Bungee', cursive;
+            letter-spacing: 5px;
+            font-size: 1.5rem;
+            animation: pulse 1.5s infinite;
         }
 
-        .link-card {
-            background: var(--color-card);
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            padding: 16px;
-            border-radius: 12px;
-            text-decoration: none;
-            color: #fff;
-            font-weight: bold;
-            transition: 0.3s;
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+
+        /* ARKA PLAN VİDEO */
+        #bg-video {
+            position: fixed;
+            right: 0; bottom: 0; min-width: 100%; min-height: 100%;
+            z-index: -1;
+            object-fit: cover;
+            filter: brightness(0.4);
+        }
+
+        /* SES KARTI (BEYAZ GLOWLU) */
+        .volume-card {
+            position: fixed;
+            top: 30px; left: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 15px;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.2); /* Kart Glow */
+            z-index: 1000;
+        }
+
+        /* ŞİDDETLİ GLOWLU BAR */
+        #volume-bar {
+            -webkit-appearance: none;
+            width: 90px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            outline: none;
+            box-shadow: var(--intense-glow);
+        }
+
+        #volume-bar::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px; height: 14px;
+            background: #fff;
+            border-radius: 50%;
             cursor: pointer;
-            gap: 12px;
+            box-shadow: var(--intense-glow); /* Topçuk Şiddetli Glow */
         }
 
-        .link-card:hover {
-            border-color: var(--color-primary);
-            box-shadow: var(--border-glow);
-            transform: translateY(-3px);
-            background: rgba(168, 85, 247, 0.08);
+        #mute-icon { cursor: pointer; color: #fff; filter: drop-shadow(0 0 8px #fff); }
+
+        /* ANA KONTEYNER (YATAY) */
+        .container {
+            width: 90%;
+            max-width: 950px;
+            padding: 50px;
+            background: var(--color-card);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            box-shadow: var(--white-glow);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 50px;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 1s ease;
         }
 
-        .music-btn { border: 1px solid var(--color-music); color: #fff; }
-        .music-btn:hover { box-shadow: 0 0 20px rgba(29, 185, 84, 0.4); background: rgba(29, 185, 84, 0.1); }
+        .profile-section { flex: 1; text-align: center; }
+        .links-section { flex: 1.8; }
 
-        /* Font Generator Butonu */
-        .font-btn { border: 1px solid var(--color-font); color: #fff; }
-        .font-btn:hover { box-shadow: 0 0 20px rgba(0, 210, 255, 0.4); background: rgba(0, 210, 255, 0.1); }
+        .profile-img {
+            width: 160px; height: 160px;
+            border-radius: 50%;
+            border: 2px solid var(--color-primary);
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.4);
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
 
-        .minecraft-btn { border: 1px solid var(--color-minecraft); color: var(--color-minecraft); }
-        .minecraft-btn:hover { box-shadow: 0 0 20px rgba(255, 170, 0, 0.4); color: #fff; }
+        h1 { font-family: 'Bungee', cursive; font-size: 2.5rem; margin-bottom: 5px; }
+        .badge { display: inline-block; background: rgba(168, 85, 247, 0.15); color: var(--color-primary); padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; border: 1px solid var(--color-primary); margin-bottom: 20px; }
 
+        .tech-stack { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+        .tech-item { font-size: 0.7rem; background: rgba(255, 255, 255, 0.08); padding: 4px 10px; border-radius: 5px; border: 1px solid rgba(255, 255, 255, 0.1); }
+
+        .links-group { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .full-width { grid-column: span 2; }
+
+        .link-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 16px; border-radius: 12px;
+            text-decoration: none; color: #fff; font-weight: bold; font-size: 0.85rem;
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            transition: 0.3s;
+        }
+
+        .link-card:hover { background: rgba(255, 255, 255, 0.1); border-color: #fff; transform: translateY(-2px); }
+
+        .btn-icon { width: 22px; height: 22px; object-fit: contain; }
+        .music-btn { border-color: var(--color-music); }
+        .font-btn { border-color: var(--color-font); }
+        .minecraft-btn { border-color: var(--color-minecraft); color: var(--color-minecraft); }
         .discord-id { background: var(--color-discord); border: none !important; }
-        .discord-id:hover { box-shadow: 0 0 25px rgba(88, 101, 242, 0.6); }
 
-        .btn-icon { width: 24px; height: 24px; object-fit: contain; }
-
-        footer { margin-top: 50px; font-size: 0.7rem; color: #555; letter-spacing: 1px; }
+        @media (max-width: 850px) {
+            .container { flex-direction: column; text-align: center; max-height: 90vh; overflow-y: auto; }
+            .links-group { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="bg-glow" style="top: 15%; left: 10%;"></div>
-    <div class="bg-glow" style="bottom: 15%; right: 10%;"></div>
+    <div id="enter-screen" onclick="initSite()">
+        <span>ᴄʟɪᴄᴋ ᴛᴏ ᴇɴᴛᴇʀ...</span>
+    </div>
 
-    <div class="container">
-        <img src="https://raw.githubusercontent.com/cdexecctru/fileupld/main/dhk80vcw/credosprojectlogo.png" alt="Credos Logo" class="profile-img">
-        
-        <h1>CREDOS</h1>
-        <div class="badge">Full-Stack Developer</div>
+    <div class="volume-card">
+        <i class="fas fa-volume-up" id="mute-icon" onclick="toggleMute()"></i>
+        <input type="range" id="volume-bar" min="0" max="100" value="100">
+    </div>
 
-        <p class="description">
-            Specializing in building robust full-stack applications and high-performance gaming ecosystems. Passionate about clean code and modern UI/UX.
-        </p>
+    <video loop playsinline id="bg-video">
+        <source src="video.mp4" type="video/mp4">
+    </video>
 
-        <div class="tech-stack">
-            <span class="tech-item">JavaScript</span>
-            <span class="tech-item">Node.js</span>
-            <span class="tech-item">HTML/CSS</span>
-            <span class="tech-item">Python</span>
-            <span class="tech-item">Java</span>
-            <span class="tech-item">C#</span>
-        </div>
-
-        <div class="links-group">
-            <a href="https://music.credos.qzz.io" target="_blank" class="link-card music-btn">
-                <img src="https://raw.githubusercontent.com/cdexecctru/fileupld/main/p0iuu8ex/credos_music_logo.png" class="btn-icon" alt="Music Logo" style="border-radius: 50%;">
-                <span>CREDOS MUSIC PLAYER</span>
-            </a>
-
-            <a href="https://font.credos.qzz.io" target="_blank" class="link-card font-btn">
-                <img src="https://www.shutterstock.com/image-vector/black-white-crayon-kids-font-260nw-2593051791.jpg" class="btn-icon" alt="Font Logo" style="filter: invert(1);">
-                <span>CREDOS FONT GENERATOR</span>
-            </a>
-
-            <a href="https://file.credos.qzz.io" target="_blank" class="link-card">
-                <img src="https://cdn-icons-png.flaticon.com/512/12433/12433942.png" class="btn-icon" alt="File Center" style="filter: invert(1);">
-                <span>CREDOS FILE CENTER</span>
-            </a>
-
-            <a href="https://shop.credos.qzz.io" target="_blank" class="link-card minecraft-btn">
-                <span>🎮 CREDOS SMP - MINECRAFT SERVER</span>
-            </a>
-
-            <a href="https://github.com/cdexecctru" target="_blank" class="link-card">
-                <img src="https://images.icon-icons.com/3685/PNG/512/github_logo_icon_229278.png" class="btn-icon" alt="GitHub">
-                <span>GITHUB REPOSITORIES</span>
-            </a>
-            
-            <div class="link-card discord-id" onclick="copyDiscord()">
-                <img src="https://raw.githubusercontent.com/cdexecctru/fileupld/main/eb2gi13v/discord.webp" class="btn-icon" alt="Discord">
-                <span>DISCORD: <strong id="dc">credos_.</strong></span>
+    <div class="container" id="main-container">
+        <div class="profile-section">
+            <img src="https://raw.githubusercontent.com/cdexecctru/fileupld/main/dhk80vcw/credosprojectlogo.png" class="profile-img">
+            <h1>CREDOS</h1>
+            <div class="badge">Full-Stack Developer</div>
+            <div class="tech-stack">
+                <span class="tech-item">HTML</span><span class="tech-item">CSS</span>
+                <span class="tech-item">JavaScript</span><span class="tech-item">Node.js</span>
+                <span class="tech-item">Python</span><span class="tech-item">Java</span><span class="tech-item">C#</span>
             </div>
         </div>
 
-        <footer>
-            DESIGNED BY CREDOS &copy; 2025
-        </footer>
+        <div class="links-section">
+            <div class="links-group">
+                <a href="https://music.credos.qzz.io" target="_blank" class="link-card music-btn">
+                    <img src="https://raw.githubusercontent.com/cdexecctru/fileupld/main/p0iuu8ex/credos_music_logo.png" class="btn-icon" style="border-radius: 50%;">
+                    <span>CREDOS MUSIC PLAYER</span>
+                </a>
+                <a href="https://font.credos.qzz.io" target="_blank" class="link-card font-btn">
+                    <img src="https://www.shutterstock.com/image-vector/black-white-crayon-kids-font-260nw-2593051791.jpg" class="btn-icon" style="filter: invert(1);">
+                    <span>FONT GENERATOR</span>
+                </a>
+                <a href="https://file.credos.qzz.io" target="_blank" class="link-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/12433/12433942.png" class="btn-icon" style="filter: invert(1);">
+                    <span>FILE CENTER</span>
+                </a>
+                <a href="https://shop.credos.qzz.io" target="_blank" class="link-card minecraft-btn">
+                    <span>🎮 MINECRAFT SERVER</span>
+                </a>
+                <a href="https://github.com/cdexecctru" target="_blank" class="link-card full-width">
+                    <img src="https://images.icon-icons.com/3685/PNG/512/github_logo_icon_229278.png" class="btn-icon">
+                    <span>GITHUB REPOSITORIES</span>
+                </a>
+                <div class="link-card discord-id full-width" onclick="copyDiscord()">
+                    <img src="https://raw.githubusercontent.com/cdexecctru/fileupld/main/eb2gi13v/discord.webp" class="btn-icon">
+                    <span>DISCORD: <strong id="dc">credos_.</strong></span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
+        const video = document.getElementById('bg-video');
+        const volBar = document.getElementById('volume-bar');
+        const muteIcon = document.getElementById('mute-icon');
+        const enterScreen = document.getElementById('enter-screen');
+        const container = document.getElementById('main-container');
+
+        function initSite() {
+            enterScreen.style.opacity = '0';
+            setTimeout(() => {
+                enterScreen.style.display = 'none';
+                container.style.opacity = '1';
+                container.style.transform = 'scale(1)';
+                video.play();
+                video.volume = volBar.value / 100;
+            }, 800);
+        }
+
+        volBar.oninput = function() {
+            video.volume = this.value / 100;
+            muteIcon.className = (this.value == 0) ? "fas fa-volume-mute" : "fas fa-volume-up";
+        }
+
+        function toggleMute() {
+            if (video.volume > 0) {
+                video.volume = 0; volBar.value = 0;
+                muteIcon.className = "fas fa-volume-mute";
+            } else {
+                video.volume = 0.3; volBar.value = 30;
+                muteIcon.className = "fas fa-volume-up";
+            }
+        }
+
         function copyDiscord() {
-            const dc = "credos_.";
-            navigator.clipboard.writeText(dc);
-            alert("Discord ID Copied: " + dc);
+            navigator.clipboard.writeText("credos_.");
+            alert("Discord ID Copied!");
         }
     </script>
 </body>
