@@ -22,7 +22,8 @@
             --intense-glow: 0 0 15px #fff, 0 0 35px #fff, 0 0 50px rgba(255, 255, 255, 0.6); 
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* Standart mause'u gizle ve seçim engelle */
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none !important; user-select: none; }
 
         body {
             background-color: var(--color-bg);
@@ -33,7 +34,19 @@
             align-items: center;
             min-height: 100vh;
             overflow: hidden;
-            cursor: crosshair;
+        }
+
+        /* BEYAZ GLOWLU KALIN NOKTA MOUSE */
+        #custom-cursor {
+            width: 12px;
+            height: 12px;
+            background: #fff;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 999999;
+            box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff;
+            transform: translate(-50%, -50%);
         }
 
         #enter-screen {
@@ -44,7 +57,6 @@
             justify-content: center;
             align-items: center;
             z-index: 10000;
-            cursor: pointer;
             transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -66,6 +78,7 @@
             filter: brightness(0.4);
         }
 
+        /* MÜZİK BARI STYLE (ORİJİNAL) */
         .volume-card {
             position: fixed;
             top: 30px; left: 30px;
@@ -88,7 +101,7 @@
             background: rgba(255, 255, 255, 0.2);
             border-radius: 10px;
             outline: none;
-            box-shadow: var(--intense-glow); 
+            box-shadow: var(--intense-glow); /* Senin istediğin o yoğun parlama */
         }
 
         #volume-bar::-webkit-slider-thumb {
@@ -96,13 +109,13 @@
             width: 16px; height: 16px;
             background: #fff;
             border-radius: 50%;
-            cursor: pointer;
-            box-shadow: var(--intense-glow); 
+            box-shadow: var(--intense-glow); /* Yuvarlağın parlaması */
             border: 2px solid #fff;
         }
 
-        #mute-icon { cursor: pointer; color: #fff; font-size: 1.3rem; filter: drop-shadow(0 0 10px #fff); }
+        #mute-icon { color: #fff; font-size: 1.3rem; filter: drop-shadow(0 0 10px #fff); }
 
+        /* KART TASARIMI */
         .container {
             width: 90%;
             max-width: 950px;
@@ -152,7 +165,6 @@
         }
 
         .link-card:hover { background: rgba(255, 255, 255, 0.12); border-color: #fff; transform: scale(1.03); }
-
         .btn-icon { width: 24px; height: 24px; object-fit: contain; }
         .music-btn { border-color: var(--color-music); }
         .font-btn { border-color: var(--color-font); }
@@ -168,6 +180,8 @@
 </head>
 <body>
 
+    <div id="custom-cursor"></div>
+
     <div id="enter-screen" onclick="initSite()">
         <span>CLICK TO ENTER...</span>
     </div>
@@ -177,7 +191,7 @@
         <input type="range" id="volume-bar" min="0" max="100" value="100"> 
     </div>
 
-    <video loop playsinline id="bg-video" preload="auto">
+    <video loop playsinline id="bg-video">
         <source src="https://raw.githubusercontent.com/cdexecctru/fileupld/main/3egscaya/video.mp4" type="video/mp4">
     </video>
 
@@ -222,16 +236,31 @@
     </div>
 
     <script>
+        // KORUMA SCRIPTİ
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.onkeydown = function(e) {
+            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) {
+                return false;
+            }
+        };
+
+        // MOUSE TAKİBİ
+        const cursor = document.getElementById('custom-cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // SİTE FONKSİYONLARI
         const video = document.getElementById('bg-video');
         const volBar = document.getElementById('volume-bar');
         const muteIcon = document.getElementById('mute-icon');
-        const enterScreen = document.getElementById('enter-screen');
         const container = document.getElementById('main-container');
 
         function initSite() {
-            enterScreen.style.opacity = '0';
+            document.getElementById('enter-screen').style.opacity = '0';
             setTimeout(() => {
-                enterScreen.style.display = 'none';
+                document.getElementById('enter-screen').style.display = 'none';
                 container.style.opacity = '1';
                 container.style.transform = 'translateY(0)';
                 video.volume = 1.0; 
